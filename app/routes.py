@@ -1,6 +1,5 @@
 import os
 import tempfile
-import numpy as np
 import pandas as pd
 from app.forms import InputForm, LoginForm
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
@@ -9,7 +8,7 @@ from app.db.user_queries import auth_user
 from werkzeug.utils import secure_filename
 from app.multiprocessing_batch import process_batch
 
-
+main= Blueprint("main", __name__)
 
 ### LOGIN ROUTE ###
 
@@ -45,36 +44,43 @@ def index():
     form= InputForm()
 
     if form.validate_on_submit():
+        print("Formulario válido")
 
-        name= form.name.data
-        last_name= form.last_name.data
+        name= form.name.data.lower()
+        last_name= form.last_name.data.lower()
         dob= form.date_of_birth.data
         gender= form.gender.data
         files= form.file_upload.data
+        # print(f"Archivos subidos: {form.file_upload.data}")
 
-        name_id= str(name)+str(last_name)
-
-        athlete_df= pd.DataFrame(
+        athlete_df= pd.DataFrame([
             dict(
                 name=name,
                 last_name=last_name,
                 date_of_birth=dob,
-                gender=gender)
-        )        
+                gender=gender)]
+        ) 
+
+        for file in files:
+            print(file.filename)
 
         filepaths= []
         for file in files:
             filename= secure_filename(file.filename)
 
-            with tempfile.NamedTemporaryFile(delete=False, suffix=filename) as temp:
-                file.save(temp)
-                filepath= temp.name
+            with tempfile.NamedTemporaryFile(delete=False, suffix=filename) as tmp:
+                file.save(tmp)
+                filepath= tmp.name
 
                 filepaths.append(filepath)
 
-        process_batch(filepaths, athlete_df)
+        if filepaths:
+            process_batch(filepaths, athlete_df)
 
-        return redirect(url_for("main.results"))
+            flash("Success", "success")
+            return redirect(url_for("main.index"))
+        else:
+            flash("No files in filepaths", "danger")
 
     return render_template("index.html", form= form)
 
@@ -83,11 +89,9 @@ def index():
 @main.route("/results", methods=["GET"])
 @login_required
 def results():
-    prediction= session.pop("prediction", None)
     
-    if prediction is None:
-        return redirect(url_for("main.index"))
-    
+        
+
     return render_template("results.html", prediction = prediction) 
 
 ### LOGOUT ###

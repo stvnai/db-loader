@@ -1,9 +1,9 @@
 import re
-from datetime import date, timedelta
+from datetime import date
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField, DateField, StringField, PasswordField
-from wtforms.validators import DataRequired, NumberRange, InputRequired, Length, Email, ValidationError
-from flask_wtf.file import MultipleFileField, FileAllowed, FileRequired 
+from wtforms.validators import InputRequired, Length, ValidationError
+from flask_wtf.file import FileAllowed, FileRequired, MultipleFileField
 
                     ### CUSTOM VALIDATORS ###
 
@@ -33,7 +33,7 @@ def validate_date(form, field):
 class InputForm(FlaskForm):
     
     name= StringField(
-        "name",
+        "Name",
         validators= [
             InputRequired(),
             Length(max=75)
@@ -41,7 +41,7 @@ class InputForm(FlaskForm):
     )
     
     last_name= StringField(
-        "lastname",
+        "Last Name",
         validators= [
             InputRequired(),
             Length(max=75)
@@ -49,7 +49,7 @@ class InputForm(FlaskForm):
     )
     
     gender= SelectField(
-        "gender",
+        "Sex",
         choices=[
             ("male", "Male"),
             ("female", "Female"),
@@ -63,7 +63,7 @@ class InputForm(FlaskForm):
     )
 
     date_of_birth= DateField(
-        "dateofbirth",
+        "Date of Birth",
         validators=[
             InputRequired(),
             validate_date

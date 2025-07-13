@@ -1,0 +1,558 @@
+                        
+                        
+                        
+                        /* *******##### BODY AND HEADERS SETTINGS #####******* */
+
+/* ***##### BODY #####*** */
+
+body {
+    font-family:"Plus Jakarta Sans",  'Noto Sans', 'Arial', sans-serif;
+    background-color: #141414;
+    padding: 10px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+
+/* ***##### HEADERS #####*** */
+
+h1{
+    text-align: center;
+    font-family: "Plus Jakarta Sans", "Noto Sans";
+    
+    color: #CCCCCC;
+    font-size: 35px;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    
+}
+
+h2{ margin-top: 80px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #198FB3;
+}
+
+
+
+                        /* *******##### INPUT FIELDS #####******* */
+
+/* ***##### INPUT LOGIN DATA #####*** */
+
+.input-login {
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    text-align: left;
+    text-indent: 8px;
+    font-size: medium;
+    width: 215px;
+    height: 30px;
+    border: 2px solid transparent;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #333333;
+    color: #CCCCCC;
+
+}
+
+.input-login:focus {
+    border-color: transparent;
+    outline: none;
+}
+
+.input-login::placeholder {
+    color: #999999;
+    opacity: 0.5;
+    font-style: normal;
+}
+
+
+/* ***##### INPUT SIGN UP DATA #####*** */
+                    
+.input-signup {
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    text-align: left;
+    text-indent: 8px;
+    font-size: medium;
+    width: 215px;
+    height: 30px;
+    border: 2px solid transparent;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #333333;
+    color: #CCCCCC;
+
+}
+
+.input-signup:focus {
+    border-color: transparent;
+    outline: none;
+}
+
+.input-signup::placeholder {
+    color: #999999;
+    opacity: 0.5;
+    font-style: normal;
+}
+
+
+/* ***##### INPUT CALCULATE DATA #####*** */
+
+.general-form {margin-top: 20px;
+    color: #CCCCCC;
+    max-width: fit-content;
+    margin: auto; 
+}
+
+.account-actions {margin-top: 20px;
+    font-size: 13px;
+    font-family: "Plus Jakarta Sans", "Noto Sans" sans-serif;
+    color: #CCCCCC;
+    max-width: fit-content;
+    margin: auto; 
+}
+
+label {
+    display:block;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.inputs_db {
+    text-align: left;
+    text-indent: 8px;
+    font-size: medium;
+    width: 215px;
+    height: 30px;
+    border: 2px solid transparent;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #333333;
+    color: #CCCCCC;
+
+}
+
+.inputs_sb:focus {
+  border-color: transparent;
+  outline: none;
+}
+
+.input_db::placeholder {
+    color: #999999;
+    opacity: 0.5;
+    font-style: normal;
+}
+
+
+/* ***##### INPUT UNITS DATA #####*** */
+
+.unit-labels {
+    padding-bottom: 4%;
+    display: flex;
+    text-align: center;
+    font-size: 12px;
+    color: #CCCCCC;   
+}
+
+.unit-toggle {
+    display: flex;
+    flex-direction:row-reverse;
+    align-items: baseline;
+    gap: 10px;
+}
+
+
+
+                    /* *******##### OUTPUT FIELDS #####******* */
+
+/* ***##### RESULTS PAGE #####*** */
+
+.prediction-value {
+    margin-top: 5px;
+    text-align: center;
+    align-items: center;
+    font-size: 75px;
+}
+
+
+
+                    /* *******##### BUTTONS #####******* */
+
+/* ***##### REGISTER BUTTON #####*** */
+
+.signup-button {
+display: block;
+margin: auto;
+margin-top: 25px;
+margin-bottom: 20px;
+background-color: #141414;
+color: #10CDE6;
+padding: 8px 73px;
+border: 1px solid #10CDE6;
+border-radius: 20px;
+cursor: pointer;
+font-size: 16px;
+transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+font-weight: bold;
+
+}
+
+.signup-button:hover {
+background-color: #10CDE6;
+border: 1px solid #10CDE6;
+color: #050505;
+transform: scale(1.03);
+
+}
+
+.signup-button:active {
+transform: scale(0.95);
+
+}
+
+
+/* ### LOGIN BUTTON ### */
+
+.login-button {
+    display: block;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 8px 73px;
+    border: 1px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    font-weight: bold;
+    
+}
+
+.login-button:hover {
+    background-color: #10CDE6;
+    border: 1px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.03);
+    
+    
+}
+
+.login-button:active {
+    transform: scale(0.95);
+    
+}
+
+
+/* ### LOGOUT BUTTON ### */
+
+.logout-button {
+    position: fixed;
+    display: block;
+    align-items: left;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 5px 20px;
+    border: 1px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.4s ease, transform 0.2s ease;
+    font-family: Noto Sans;
+    font-weight: bold;
+    
+}
+
+.logout-button:hover {
+    background-color: #141414;
+    border: 1px solid crimson;
+    color: crimson;
+    transform: scale(1.03);  
+}
+
+.logout-button:active {
+    transform: scale(0.95);
+}
+
+
+/* ***##### CALCULATE BUTTON #####*** */
+                                    
+.process-button {
+    display: block;
+    margin: auto;
+    margin-top: 25px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 8px 73px;
+    border: 1.5px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    font-weight: bold;  
+}
+
+.process-button:hover {
+    background-color: #10CDE6;
+    border: 1px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.03);   
+}
+
+.process-button:active {
+    transform: scale(0.95);  
+}
+
+
+/* ***##### RESET BUTTON #####*** */
+
+.reset-button {
+    display: block;
+    margin: auto;
+    align-items: center;
+    margin-top: 50px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 8px 73px;
+    border: 1.5px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.4s ease, transform 0.2s ease;
+    font-family: Noto Sans;
+    font-weight: bold;
+    
+}
+
+.reset-button:hover {
+    background-color: #10CDE6;
+    border: 2px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.05);  
+}
+
+
+/* ***##### SIGNUP/SIGNIN LINKS #####*** */
+
+.sign-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+}
+
+.sign-link a {position: inherit;
+    color: #198FB3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sign-link a:visited {
+    color: #198FB3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sign-link a:hover {
+    color: #10CDE6;
+    text-decoration: underline;
+}
+
+
+/* ***##### SLIDERS #####*** */
+
+.toggle-group {
+    display: flex;
+    flex-direction:row-reverse;
+    align-items: center;
+    gap: 10px;
+    margin:auto;
+}
+
+.switch {
+    position: relative;
+    display: block;
+    width: 35px;
+    height: 20px;
+}
+
+.switch input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #198FB3;
+    border-radius: 50px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    left: 2px;
+    bottom: 2.5px;
+    background-color: #CCCCCC;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #10CDE6;
+}
+
+input:checked + .slider::before {
+    transform: translateX(15px);
+}
+
+
+
+                    /* *****### FLASH MESSAGES AND ALERTS ###***** */
+
+/* ### FLASH MESSAGES GENERAL SETTINGS ### */
+
+.flash-message {
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: "Noto Sans", sans-serif;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* ### SUCCESS FLASH MESSAGES ### */
+                    
+.flash-message.success {
+    
+    color: #78FF6E;
+    ;
+}
+
+
+/* ### DANGER FLASH MESSAGES ### */
+
+.flash-message.danger {
+    
+    color: #E6474C;
+    ;
+}
+
+
+
+                    /* *****### ANOTHER GENERAL SETTINGS ###***** */
+
+
+/* ***##### DEVICES #####*** */
+
+@media (max-width: 580px) {
+    .toggle-group {
+        vertical-align: center;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Ocultar el input file original pero mantenerlo funcional */
+.file-upload-wrapper input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Botón personalizado que se ve como tus otros inputs */
+.file-upload-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 215px;
+    height: 30px;
+    background-color: #333333;
+    color: #CCCCCC;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    padding: 0 8px;
+    font-size: medium;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+
+.file-upload-display:hover {
+    border-color: #10CDE6;
+    color: #10CDE6;
+}
+
+.file-upload-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-upload-icon {
+    color: #10CDE6;
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+/* Texto cuando no hay archivos seleccionados */
+.file-upload-placeholder {
+    color: #999999;
+    opacity: 0.5;
+    font-style: normal;
+}
+
+/* Contador de archivos */
+.file-count {
+    background-color: #10CDE6;
+    color: #050505;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+}

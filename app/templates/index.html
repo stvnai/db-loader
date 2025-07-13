@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycling DB Loader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <form action="{{ url_for('main.logout') }}" method="get">
+        <button type="submit" class="logout-button">Log Out</button>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class="flash-message {{ category }}">{{ message }}</p>
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+    </form>
+    
+    
+    <h1>DB Loader</h1>
+    <form  method= "post" enctype="multipart/form-data" class="general-form">
+
+        {{form.hidden_tag()}}
+        <div>
+            {{ form.name.label }}
+            {{ form.name(class="inputs_db") }}
+        </div>
+
+        <div>
+            {{ form.last_name.label }}
+            {{ form.last_name(class="inputs_db") }}
+        </div>
+
+        <div>
+            {{ form.gender.label }}
+            {{ form.gender(class="inputs_db") }}
+        </div>
+
+        <div>
+            {{ form.date_of_birth.label }}
+            {{ form.date_of_birth(class="inputs_db") }}
+        </div>
+
+
+        <div>
+            {{ form.file_upload.label }}
+            {{ form.file_upload(class="inputs_db", multiple=True, accept=".fit,.FIT") }}
+        </div>
+
+        <div>
+        {{form.submit(class="process-button")}}
+        </div>
+    </form>
+    
+</body>
+</html>

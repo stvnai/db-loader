@@ -5,8 +5,8 @@ from werkzeug.security import check_password_hash
 def auth_user(username:str, password:str) -> bool:
 
     query= """
-        SELECT password_hash 
-        FROM users
+        SELECT password_hashed 
+        FROM admin
         WHERE username=%s
         LIMIT 1    
     """
@@ -18,7 +18,7 @@ def auth_user(username:str, password:str) -> bool:
                 result = cur.fetchone()
 
                 if result:
-                    stored_hash= result["password_hash"]
+                    stored_hash= result["password_hashed"]
                     return check_password_hash(stored_hash, password)
                 else:
                     return False

@@ -5,6 +5,7 @@ dnspython==2.7.0
 email_validator==2.2.0
 Flask==3.1.1
 Flask-WTF==1.2.2
+garmin-fit-sdk==21.171.0
 gunicorn==23.0.0
 idna==3.10
 itsdangerous==2.2.0

@@ -1,7 +1,7 @@
 import time
 import multiprocessing as mp
-from fitextractor.fit_data_extractor import extract_data
-from db.inserts_database import populate_db
+from app.fitextractor.fit_data_extractor import extract_data
+from app.db.inserts_database import populate_db
 
 def process_and_insert(filepath, athlete_df):
 

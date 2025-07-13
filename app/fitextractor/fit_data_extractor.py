@@ -4,44 +4,83 @@ from garmin_fit_sdk import Stream, Decoder
 import os
 import time
 
-# Columns to be extracted from .fit file and included in the dataframe and later in .csv file.
-data_columns= ["activity_id", "elapsed_time","position_lat","position_long",
-    "distance","elevation","speed","power","heart_rate","temperature",
-    "cadence","respiration_rate","accumulated_power","left_torque_effectiveness",
-    "right_torque_effectiveness","left_pedal_smoothness","right_pedal_smoothness",
-    "work","w_kg","kj_kg","left_power_phase_start","left_power_phase_end",
-    "right_power_phase_start","right_power_phase_end","left_power_peak_start",
-    "left_power_peak_end","right_power_peak_start","right_power_peak_end",
-    "balance_left","balance_right"
-    ]
+                    ##########  DATA AND METADATA SCHEMAS  ##########
 
-#Columns to be extracted from .fit file and included as metadata.
-user_profile_data= ["weight", "gender", "age", "height"]
 
-device_data= ["manufacturer", "garmin_product"]
+## METADATA SCHEMA
 
-session_data= ["timestamp","total_elapsed_time", "total_timer_time",
-               "total_distance", "total_work", "total_calories", "avg_speed",
-               "max_speed", "avg_power", "max_power", "avg_heart_rate",
-               "max_heart_rate", "avg_cadence","max_cadence","min_temperature",
-               "max_temperature","avg_temperature","total_ascent",
-               "total_descent", "normalized_power", "training_stress_score",
-               "intensity_factor", "threshold_power", "avg_vam", "sport", "sub_sport"               
-               ]
+metadata_schema= {
+    "athlete_id": "Int64",
+    "timestamp": "datetime64[ns, UTC]",
+    "sport": "string",
+    "sub_sport": "string",
+    "weight": "Float64",
+    "threshold_power": "Int64",
+    "total_time": "string",
+    "ride_time": "string",
+    "total_distance": "Float64",
+    "total_work": "Float64",
+    "total_kj_kg": "Float64",
+    "total_calories": "Int64",
+    "avg_speed": "Float64",
+    "max_speed": "Float64",
+    "avg_power": "Int64",
+    "max_power": "Int64",
+    "normalized_power": "Int64",
+    "training_stress_score":"Float64",
+    "intensity_factor": "Float64",
+    "avg_heart_rate": "Int64",
+    "max_heart_rate": "Int64",
+    "avg_cadence": "Int64",
+    "max_cadence": "Int64",
+    "min_temperature": "Int64",
+    "max_temperature": "Int64",
+    "avg_temperature": "Int64",
+    "total_ascent": "Int64",
+    "total_descent": "Int64",
+    "avg_vam": "Float64"
+}
 
-# Columns to be used in the metadata dataframe and included in .csv file.
-columns_metadata= ["timestamp","sport","sub_sport","weight", 
-                   "threshold_power","total_time","ride_time","distance",
-                   "work_kj","calories", "avg_speed","max_speed","avg_power",
-                   "max_power","normalized_power","training_stress_score",
-                   "intensity_factor","avg_heart_rate","max_heart_rate",
-                   "avg_cadence","max_cadence","min_temperature","max_temperature",
-                   "avg_temperature","total_ascent","total_descent","avg_vam",
-                    ]
 
-# Columns to be used in the athlete dataframe and included in .csv file.
+## DATA SCHEMA
 
-def extract_data(filepath:str)-> tuple:
+data_schema= {
+    'activity_id': 'Int64',
+    'elapsed_time': 'string',
+    'position_lat': 'Float64',
+    'position_long': 'Float64',
+    'distance': 'Float64',
+    'elevation': 'Float64',
+    'speed': 'Float64',
+    'power': 'Int64',
+    'heart_rate': 'Int64',
+    'temperature': 'Int64',
+    'cadence': 'Int64',
+    'respiration_rate': 'Int64',
+    'accumulated_power': 'Int64',
+    'left_torque_effectiveness': 'Float64',
+    'right_torque_effectiveness': 'Float64',
+    'left_pedal_smoothness': 'Float64',
+    'right_pedal_smoothness': 'Float64',
+    'work': 'Float64',
+    'w_kg': 'Float64',
+    'kj_kg': 'Float64',
+    'left_power_phase_start': 'Float64',
+    'left_power_phase_end': 'Float64',
+    'right_power_phase_start': 'Float64',
+    'right_power_phase_end': 'Float64',
+    'left_power_peak_start': 'Float64',
+    'left_power_peak_end': 'Float64',
+    'right_power_peak_start': 'Float64',
+    'right_power_peak_end': 'Float64',
+    'balance_left': 'Int64',
+    'balance_right': 'Int64',
+    'lap': 'boolean'
+}
+
+
+def extract_data(filepath:str) -> tuple:
+
     '''
     Description
     ----
@@ -51,187 +90,381 @@ def extract_data(filepath:str)-> tuple:
     :param str filepath: string with absolute path to file being processed.
     :param str name_id: string with the athlete's name introduced by the user in the GUI.
 
-    :return: tuple with data_df, metadata_df, csv_filename and filepath
+    :return: tuple with data_df and metadata_df
     :rtype: tuple
 
     '''
+    
+     
+                    ########## EMPTY  MAIN DATAFRAMES WITH SCHEMA  ##########
+
+    filename= os.path.basename(filepath)
+
+    metadata_cols= list(metadata_schema.keys())
+    metadata_df= pd.DataFrame(columns=metadata_cols).astype(metadata_schema)
+
+    data_cols= list(data_schema.keys())
+    data_df= pd.DataFrame(columns=list(data_schema.keys())).astype(data_schema)
+
+
+##### GET DATA FROM .FIT FILE #####
+    raw_metadata_df= pd.DataFrame()
+    raw_data_df=pd.DataFrame()
 
     try:
-        stream = Stream.from_file(filepath)
-        decoder = Decoder(stream)
+        stream= Stream.from_file(filepath)
+        decoder= Decoder(stream)
         messages, _ = decoder.read()
-
+        messages_keys= list(messages.keys())
     except Exception as e:
-        print(f"FATAL ERROR: Unable to read data from {filepath}: {e}")
-        return
-    
-    try:
-        manufacturer = messages.get('device_info_mesgs',[{}])[0].get('manufacturer', "N/A")
-        weight = messages.get('user_profile_mesgs',[{}])[0].get('weight',66.66)
-        time= messages["record_mesgs"][0]["timestamp"].strftime("%H%M%S")
-        date= messages["record_mesgs"][0]["timestamp"].strftime("%Y-%m-%d")
-        date = date if date else "1900-10-17"
-        
+        print(f"CRITICAL ERROR: Unable to read data from {filename}: {e}.")               
+        return raw_data_df, raw_metadata_df
 
-    except Exception as e:
-        print(f"Error in extract_data function:\nManufacturer set to N/A weight to 66.66, date to 1900-10-17, {e}")
 
-    #Extract strings for csv filename
-    # filename = f"{name_id}-{date}-{time}"
-    # directory = os.path.dirname(filepath)
-    # csv_filename = os.path.join(directory, f"{filename}")
-    try:
-        data = messages.get("record_mesgs",[])
-        if not data:
-            print(f"WARNING: No data in {filepath}")
-            data_df= pd.DataFrame()
-        
-        data_df=pd.DataFrame(data)
+                    ##########   METADATA   ##########
 
-    except Exception as e:
-        print(f"Error extracting records from file. DataFrame will be empty {filepath}: {e}")
-        data_df=pd.DataFrame()
+##### EXTRACT SESSION AND USER METADATA #####
 
-    '''
-    Takes raw data extracted metadata from a .fit file
-    and applies feature engineer, creates new metrics and select the columns 
-    to include in the resulting DataFrame. Resulting data_df will be
-    written in a .csv file.
-    '''
+## SESSION METADATA 
 
-    if  data_df.empty:
-        print(f"WARNING: No data in DataFrame. Returning empty DataFrame")
-        data_df=pd.DataFrame(data_columns)
-
-    else:
-
-        
-        data_df["elapsed_time"]= pd.to_datetime(range(len(data_df)), unit="s").strftime("%H:%M:%S")
-        # data_df["time_offset"]= pd.Series(range(len(data_df)))
-        semicircles_to_degrees= (180 / 2**31)
-        data_df["position_lat"] = np.round(data_df.get("position_lat", np.nan) * semicircles_to_degrees,8)
-        data_df["position_long"] = np.round(data_df.get("position_long", np.nan) * semicircles_to_degrees,8)
-        data_df["distance"] = np.round(data_df.get("distance", np.nan) / 1000,3)
-        data_df["elevation"] = np.round(data_df.get("altitude", np.nan),2)
-        data_df["speed"] = np.round(data_df.get("enhanced_speed", np.nan) * 3.6,3)
-        data_df["work"]= np.round(data_df.get("accumulated_power", np.nan)/1000,2)
-        
-        # df["respiration_rate"] = np.round(df["enhanced_respiration_rate"])
-
-        if weight:
-            data_df["w_kg"] = np.round(data_df.get("power",np.nan) / weight,2)
-            data_df["kj_kg"]= np.round(data_df.get("work", np.nan) / weight,2)
-
-        power_phase_columns= {"left_power_phase": ["left_power_phase_start","left_power_phase_end"],
-                            "right_power_phase": ["right_power_phase_start","right_power_phase_end"],
-                            "left_power_phase_peak": ["left_power_peak_start","left_power_peak_end"],
-                            "right_power_phase_peak": ["right_power_peak_start","right_power_peak_end"]
-                            }
-        
-        for key, new_cols in power_phase_columns.items():
-            if key in data_df.columns:
-                data_df[new_cols[0]]= np.round(data_df[key].str[0].astype(float),2)
-                data_df[new_cols[1]]= np.round(data_df[key].str[1].astype(float),2)
-        
-        if "left_right_balance" in data_df.columns:
-            if manufacturer =="garmin":
-                data_df["balance_right"] = data_df["left_right_balance"] - 128
-                data_df["balance_left"] = 100 - (data_df["left_right_balance"] - 128)
-            else:
-                data_df["balance_right"] = 100 - data_df["left_right_balance"]
-                data_df["balance_left"] = data_df["left_right_balance"]
-
-        pedaling_metrics= ["left_torque_effectiveness",
-                        "right_torque_effectiveness",
-                        "left_pedal_smoothness",
-                        "right_pedal_smoothness"]
-
-        for col in pedaling_metrics:
-            data_df[col]= data_df.get(col, np.nan)
-        
-        for col in data_columns:
-            if col not in data_df.columns:
-                data_df[col]= np.nan
-        data_df = data_df[data_columns].copy()
-
-    '''
-    Takes a .fit file and parse it with garmin_fit_sdk library
-    and drops data msgs into pd.DataFrame object.
-    '''
     concat_df= []
-    try:
-        device = messages.get('device_info_mesgs', [])
-        if not device:
-            print(f"WARNING: No device info in {filepath}")
-            device= pd.DataFrame()
 
-        device_df = pd.DataFrame(device,columns=device_data)
-        device_df= device_df.loc[[0],]
-        concat_df.append(device_df)
+    if "session_mesgs" in messages_keys:
 
-        user_profile= messages.get("user_profile_mesgs", [])
+        try:
+            session_raw_data= messages.get("session_mesgs")
+            session_raw_df= pd.DataFrame(session_raw_data)
+            concat_df.append(session_raw_df)
+        except Exception as e:
+            print(f"Error building session raw dataframe from {filename}: {e}.")
 
-        if not user_profile:
-            print(f"WARNING: No user profile info in {filepath}")
-            user_profile= pd.DataFrame()
 
-        user_profile_df = pd.DataFrame(user_profile, columns=user_profile_data)
-        concat_df.append(user_profile_df)  
-    
-        session = messages.get("session_mesgs", [])
+## DEVICE METADATA 
 
-        if not session:
-            print(f"WARNING: No session info in {filepath}")
-            session= pd.DataFrame()
+    if "device_info_mesgs" in messages_keys:
+        
+        try:
+            manufacturer= messages.get("device_info_mesgs",[{}])[0].get("manufacturer", None)
+        except Exception as e:
+            print(f"Error obtaining manufacturer device from device info data from {filename}: {e}")
 
-        session_df = pd.DataFrame(session, columns=session_data)
-        concat_df.append(session_df)
-        metadata_df= pd.concat(concat_df,axis=1)
 
-    except Exception as e:
-        print(f"Error extracting metadata from file. DataFrame will be empty {filepath}: {e}")
-        metadata_df=pd.DataFrame()
+## LAP DATA 
+    if "lap_mesgs" in messages_keys:
 
-    '''
-    Takes raw metadata extracted metadata from a .fit file
-    and applies feature engineer, creates new metrics and select the columns 
-    to include in the resulting DataFrame. Resulting metadata_df will be
-    written in a .csv file.
-    '''
+        try:
+            lap_data= messages.get("lap_mesgs",None)
+            lap_df= pd.DataFrame(lap_data)
+        except Exception as e:
+            print(f"Error building lap dataframe: {e}.")
 
-    if metadata_df.empty:
-        print(f"WARNING: No metadata in DataFrame. Returning empty DataFrame")
-        metadata_df= pd.DataFrame(columns=columns_metadata)
+## USER METADATA
+
+    if "user_profile_mesgs" in messages_keys:
+        
+        try:
+            weight= messages.get("user_profile_mesgs",[{}])[0].get("weight", None)
+        except Exception as e:
+            print(f"Error obtaining weight from user profile raw data from {filename}: {e}")
+
+        try:
+            user_raw_data= messages.get("user_profile_mesgs")
+            user_raw_df= pd.DataFrame(user_raw_data)
+            concat_df.append(user_raw_df)
+        except Exception as e:
+            print(f"Error building user profile raw dataframe from {filename}: {e}.")
+    else:
+        weight= None
+
+    if concat_df:
+        try:
+            raw_metadata_df= pd.concat(concat_df, axis=1)
+        except Exception as e:
+            print(f"Error concatenating Dataframes into raw metadata dataframe from {filename}: {e}.")
+            return raw_data_df, raw_metadata_df
+
+
+##### POPULATE METADATA DATAFRAME WITH INITIAL RAW METADATA #####
+
+    raw_metadata_cols= raw_metadata_df.columns.to_list()
+    for r_col in raw_metadata_cols:
+        if r_col in  metadata_cols:
+            metadata_df[r_col]= raw_metadata_df[r_col]
+
+
+##### METADATA PREPROCESSING #####
+
+## TOTAL TIME AND RIDE TIME
+
+    metadata_df["total_time"]= (raw_metadata_df["total_elapsed_time"].apply(\
+        lambda x: f"{int(x // 3600):02}:{int(x % 3600 //60):02}:{int(x % 60):02}"
+        )).astype("string")
+
+    metadata_df["ride_time"]= (raw_metadata_df["total_timer_time"].apply(\
+        lambda x: f"{int(x // 3600):02}:{int(x % 3600 //60):02}:{int(x % 60):02}"
+        )).astype("string")
+
+# TOTAL_WORK
+
+    metadata_df["total_work"] = (raw_metadata_df["total_work"] / 1000).round(2).astype("Float64")
+
+# TOTAL_KJ/KG
+
+    if weight:
+        try:
+            metadata_df["total_kj_kg"] = ((raw_metadata_df["total_work"] / 1000) / weight).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting total work/kj data from {filename}: {e}.")
+
+# TOTAL_DISTANCE
+
+    metadata_df["total_distance"] = (raw_metadata_df["total_distance"] / 1000).round(3).astype("Float64")
+
+## SPEED 
+
+    metadata_df["avg_speed"]= (raw_metadata_df["avg_speed"] * 3.6).round(2).astype("Float64")
+    metadata_df["max_speed"]= (raw_metadata_df["max_speed"] * 3.6).round(2).astype("Float64")
+
+## SPORT AND SUBSPORT
+
+    metadata_df["sport"]= raw_metadata_df["sport"].astype("string")
+    metadata_df["sub_sport"]= raw_metadata_df["sub_sport"].astype("string")  
+
+                    ##########   DATA   ##########
+
+##### EXTRACT DATA RECORDS #####
+
+    if "record_mesgs" in messages_keys:
+
+        try:
+            raw_data= messages.get('record_mesgs')
+            raw_data_df= pd.DataFrame(raw_data)
+        except Exception as e:
+            print(f"Error building raw data dataframe from {filename}. Data will be empty {e}.")
+            return raw_data_df, metadata_df
+
+##### CHECK FOR ACCUMULATED POWER AVAILABLE #####
+
+    if "accumulated_power" not in raw_data_df.columns:
+        try:
+            raw_data_df["accumulated_power"] = (raw_data_df["power"].cumsum() / 1000).round().astype("Int64")
+        except Exception as e:
+            print(f"No power data to create accumulated power column from {filename}")
+
+
+##### POPULATE DATA DATAFRAME WITH INITIAL RAW DATA #####
+
+    raw_data_cols= raw_data_df.columns.to_list()
+    for r_col in raw_data_cols:
+        if r_col in data_cols:
+            data_df[r_col]= raw_data_df[r_col]
+
+
+##### DATA PREPROCESSING #####
+
+# ELAPSED TIME
+
+    data_df["elapsed_time"]= pd.to_datetime(range(len(raw_data_df)), unit="s").strftime("%H:%M:%S").astype("string")
+
+
+# LAP MARKING
+
+    a= "timestamp" in lap_df.columns
+    b= "start_time" in lap_df.columns
+    c= "timestamp" in raw_data_cols
+
+    if a and b and c :
+        try:
+            data_df["lap"] = (raw_data_df["timestamp"].isin(lap_df["timestamp"]) | 
+                            raw_data_df["timestamp"].isin(lap_df["start_time"])).astype("boolean")
+        except (ValueError, TypeError) as e:
+            print(f"Error marking activity laps: {e}.")
+
+
+## ACTIVITY ID
+
+    data_df["activity_id"]= pd.Series([np.nan] * len(raw_data_df), dtype="Int64")
+
+
+## INTEGER COLUMNS
+
+    int64_raw_cols= ["power", "heart_rate", "temperature", "cadence","enhanced_respiration_rate",  "accumulated_power"]
+    int64_cols= ["power", "heart_rate", "temperature", "cadence","respiration_rate",  "accumulated_power"]
+
+    for r_col, col in zip(int64_raw_cols, int64_cols):
+
+        if r_col in raw_data_cols:
+
+            try:
+                data_df[col]= raw_data_df[r_col].round().astype("Int64")
+            except (ValueError, TypeError) as e:
+                print(f"Error converting {r_col} from {filename}: {e}.")
+        else:
+            print(f"No data found for {r_col} from {filename}.")
+            
+
+## POSITION LAT/LONG
+
+    semicircles= (180 / 2**31)
+    if "position_lat" in raw_data_cols and "position_long" in raw_data_cols:
+
+        try:
+            data_df["position_lat"]= (raw_data_df["position_lat"] * semicircles).round(8).astype("Float64")
+            data_df["position_long"]= (raw_data_df["position_long"] * semicircles).round(8).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting position lat/long data from {filename}: {e}.")
 
     else:
+        print(f"No data found for position lat/long.")
+
+
+## DISTANCE
+
+    if "distance" in raw_data_cols:
+
+        try:
+            data_df["distance"]= (raw_data_df["distance"] / 1000).round(3).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting distance data from {filename}: {e}.")
+
+    else:
+        print(f"No data found for distance in {filename}.") 
+
+
+## ELEVATION
+
+    if "altitude" in raw_data_cols:
         
+        try:
+            data_df["elevation"]= (raw_data_df["altitude"]).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting elevation data from {filename}: {e}.")
+
+    elif "enhanced_altitude" in raw_data_cols:
+
+        try:
+            data_df["elevation"]= (raw_data_df["enhanced_altitude"]).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting elevation data from {filepath}: {e}.")
+
+    else:
+        print(f"No data found for elevation in {filename}.") 
+
+
+## SPEED
+
+    if "speed" in raw_data_cols:
+
+        try:
+            data_df["speed"]= (raw_data_df["speed"] * 3.6).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error with speed data from {filename}: {e}.")
+
+    elif "enhanced_speed" in raw_data_cols:
+
+        try:
+            data_df["speed"]= (raw_data_df["enhanced_speed"] * 3.6).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting enhanced speed data from {filepath}: {e}.") 
+
+    else:
+        print(f"No data found for speed in {filename}.")
+
+
+## TORQUE EFFECTIVENESS / PEDAL SMOOTHNESS
+
+    torque_smoothness= [
+        "left_torque_effectiveness", "right_torque_effectiveness", 
+        "left_pedal_smoothness", "right_pedal_smoothness"
+    ]
+
+    for metric in torque_smoothness:
+
+        if metric in raw_data_cols:
+
+            try: 
+                data_df[metric]= raw_data_df[metric].round(1).astype(data_schema[metric])
+            except (ValueError, TypeError) as e:
+                print(f"Error converting {metric} from {filename}: {e}.")
+
+        else:
+            print(f"No data found for {metric} in {filename}.")
+
+
+##### ADITIONAL/DERIVATED METRICS #####
+
+## WORK
+
+    if "accumulated_power" in raw_data_cols:
         
+        try:
+            data_df["work"]= ((raw_data_df["accumulated_power"] / 1000)).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting work data from {filename}: {e}.")
 
-        metadata_df["total_time"]= metadata_df["total_elapsed_time"].apply(\
-        lambda x: f"{int(x//3600):02}:{int(x % 3600//60):02}:{int(x % 60):02}")
+    else:
+        print(f"No data found for work in {filename}.")
 
-        metadata_df["ride_time"]= metadata_df["total_timer_time"].apply(\
-        lambda x: f"{int(x//3600):02}:{int(x % 3600//60):02}:{int(x % 60):02}")
 
-        metadata_df["avg_speed"]= np.round(metadata_df.get("avg_speed",np.nan)*3.6,2)
-        metadata_df["max_speed"]= np.round(metadata_df.get("max_speed",np.nan)*3.6,2)
-        metadata_df["distance"]= np.round(metadata_df.get("total_distance",np.nan)/1000,2)
-        metadata_df["work_kj"]= np.round(metadata_df.get("total_work",np.nan)/1000,2)
-        metadata_df["calories"]= np.round(metadata_df.get("total_calories",np.nan),2)
-        metadata_df["training_stress_score"]= np.round(metadata_df.get("training_stress_score",np.nan),2)
-        metadata_df["intensity_factor"]= np.round(metadata_df.get("intensity_factor",np.nan),2)
-        metadata_df["avg_vam"]= np.round(metadata_df.get("avg_vam",np.nan),2)
+## WEIGHT RELATED METRICS
+
+    if weight:
+
+        try:    
+            if "accumulated_power" in raw_data_cols:
+                data_df["kj_kg"]= ((raw_data_df["accumulated_power"] / 1000) / weight).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting kj_kg data from {filename}: {e}.")
+
+        try:
+            if "power" in raw_data_cols:
+                data_df["w_kg"]= (raw_data_df["power"] / weight).round(2).astype("Float64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting w_kg data {filename}: {e}.")
         
+    else:
+        print(f"No data found for kj/kg and w/kg in {filename}.")
+
+
+## L/R BALANCE
+
+    if "left_right_balance" in raw_data_cols:
         
+        try:
+            if manufacturer == "garmin":
+                    data_df["balance_right"] = raw_data_df["left_right_balance"].round().astype("Int64") - 128
+                    data_df["balance_left"] = 100 - (raw_data_df["left_right_balance"].round().astype("Int64") - 128)
+            else:
+                data_df["balance_right"] = 100 - raw_data_df["left_right_balance"].round().astype("Int64")
+                data_df["balance_left"] = raw_data_df["left_right_balance"].round().astype("Int64")
+        except (ValueError, TypeError) as e:
+            print(f"Error converting L/R balance data from {filename}: {e}.")
+
+    else:
+        print(f"No data found fo L/R balance in {filename}.")
 
 
-        for col in columns_metadata:
-            if col not in metadata_df.columns:
-                metadata_df[col]= np.nan
+## POWER PHASE DATA
 
-        metadata_df= metadata_df[columns_metadata].copy()
+    power_phase_columns= {"left_power_phase": ["left_power_phase_start","left_power_phase_end"],
+                        "right_power_phase": ["right_power_phase_start","right_power_phase_end"],
+                        "left_power_phase_peak": ["left_power_peak_start","left_power_peak_end"],
+                        "right_power_phase_peak": ["right_power_peak_start","right_power_peak_end"]
+                        }
 
-    return data_df, metadata_df  #csv_filename, filepath
+    for key, cols in power_phase_columns.items():
+
+        if key in raw_data_cols:
+            try:
+                data_df[cols[0]] = raw_data_df[key].str[0].round(2).astype("Float64")
+                data_df[cols[1]] = raw_data_df[key].str[1].round(2).astype("Float64")
+            except (ValueError, TypeError, KeyError) as e:
+                print(f"Error converting Power Phase Data from {filename}: {e}.")
+
+        else:
+            print(f"No power phase data for {key} in {filename}.")
+
+    return data_df, metadata_df
 
 
 def save_to_csv(data_df:pd.DataFrame, metadata_df:pd.DataFrame, csv_filename:str, filepath:str):
@@ -267,7 +500,7 @@ def save_to_csv(data_df:pd.DataFrame, metadata_df:pd.DataFrame, csv_filename:str
     except Exception as e:
         print(f"WARNING, .csv file not saved for {filepath}: {e}")
 
-def process_and_insert(filepath:str, athlete_df):
+def process_and_insert(filepath:str):
 
     '''
     Description
@@ -285,5 +518,7 @@ def process_and_insert(filepath:str, athlete_df):
     '''
 
     data_df, metadata_df = extract_data(filepath)
+    return data_df, metadata_df
 
     # save_to_csv(data_df, metadata_df, csv_filename, filepath)
+
