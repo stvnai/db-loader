@@ -2,7 +2,10 @@ import pandas as pd
 import numpy as np
 from garmin_fit_sdk import Stream, Decoder
 import os
-import time
+import logging
+
+logger= logging.getLogger(__name__)
+
 
                     ##########  DATA AND METADATA SCHEMAS  ##########
 
@@ -112,12 +115,14 @@ def extract_data(filepath:str) -> tuple:
     raw_data_df=pd.DataFrame()
 
     try:
+
         stream= Stream.from_file(filepath)
         decoder= Decoder(stream)
         messages, _ = decoder.read()
         messages_keys= list(messages.keys())
+
     except Exception as e:
-        print(f"CRITICAL ERROR: Unable to read data from {filename}: {e}.")               
+        logger.critical(f"CRITICAL ERROR: Unable to read data from {filename}: {e}.")               
         return raw_data_df, raw_metadata_df
 
 
@@ -132,11 +137,13 @@ def extract_data(filepath:str) -> tuple:
     if "session_mesgs" in messages_keys:
 
         try:
+
             session_raw_data= messages.get("session_mesgs")
             session_raw_df= pd.DataFrame(session_raw_data)
             concat_df.append(session_raw_df)
+
         except Exception as e:
-            print(f"Error building session raw dataframe from {filename}: {e}.")
+            logger.error(f"Error building session raw dataframe from {filename}: {e}.")
 
 
 ## DEVICE METADATA 
@@ -144,43 +151,54 @@ def extract_data(filepath:str) -> tuple:
     if "device_info_mesgs" in messages_keys:
         
         try:
+
             manufacturer= messages.get("device_info_mesgs",[{}])[0].get("manufacturer", None)
+
         except Exception as e:
-            print(f"Error obtaining manufacturer device from device info data from {filename}: {e}")
+            logger.warning(f"Error obtaining manufacturer from {filename}: {e}")
 
 
 ## LAP DATA 
     if "lap_mesgs" in messages_keys:
 
         try:
+
             lap_data= messages.get("lap_mesgs",None)
             lap_df= pd.DataFrame(lap_data)
+
         except Exception as e:
-            print(f"Error building lap dataframe: {e}.")
+            logger.error(f"Error building lap dataframe: {e}.")
 
 ## USER METADATA
 
     if "user_profile_mesgs" in messages_keys:
         
         try:
+
             weight= messages.get("user_profile_mesgs",[{}])[0].get("weight", None)
+
         except Exception as e:
-            print(f"Error obtaining weight from user profile raw data from {filename}: {e}")
+            logger.warning(f"Error getting weight from user profile raw data from {filename}: {e}")
 
         try:
+
             user_raw_data= messages.get("user_profile_mesgs")
             user_raw_df= pd.DataFrame(user_raw_data)
             concat_df.append(user_raw_df)
+
         except Exception as e:
-            print(f"Error building user profile raw dataframe from {filename}: {e}.")
+            logger.error(f"Error building user profile raw dataframe from {filename}: {e}.")
+
     else:
         weight= None
 
     if concat_df:
         try:
+
             raw_metadata_df= pd.concat(concat_df, axis=1)
+
         except Exception as e:
-            print(f"Error concatenating Dataframes into raw metadata dataframe from {filename}: {e}.")
+            logger.error(f"Error concatenating Dataframes into raw metadata dataframe from {filename}: {e}.")
             return raw_data_df, raw_metadata_df
 
 
@@ -190,31 +208,59 @@ def extract_data(filepath:str) -> tuple:
     for r_col in raw_metadata_cols:
         if r_col in  metadata_cols:
             metadata_df[r_col]= raw_metadata_df[r_col]
+        
+
+    
 
 
 ##### METADATA PREPROCESSING #####
 
 ## TOTAL TIME AND RIDE TIME
 
-    metadata_df["total_time"]= (raw_metadata_df["total_elapsed_time"].apply(\
-        lambda x: f"{int(x // 3600):02}:{int(x % 3600 //60):02}:{int(x % 60):02}"
-        )).astype("string")
+    try:
 
-    metadata_df["ride_time"]= (raw_metadata_df["total_timer_time"].apply(\
-        lambda x: f"{int(x // 3600):02}:{int(x % 3600 //60):02}:{int(x % 60):02}"
-        )).astype("string")
+        metadata_df["total_time"]= (raw_metadata_df["total_elapsed_time"].apply(\
+            lambda x: f"{int(x // 3600):02}:{int(x % 3600 //60):02}:{int(x % 60):02}"
+            )).astype("string")
+
+        metadata_df["ride_time"]= (raw_metadata_df["total_timer_time"].apply(\
+            lambda x: f"{int(x // 3600):02}:{int(x % 3600 //60):02}:{int(x % 60):02}"
+            )).astype("string")
+        
+    except (ValueError, TypeError) as e:
+        logger.critical(f"Error converting position lat/long data from {filename}: {e}.")
+    
+    except TypeError as e:
+        logger.warning(f"No column {e} present in raw metadata for {filename}.")
+
+
 
 # TOTAL_WORK
+    try:    
 
-    metadata_df["total_work"] = (raw_metadata_df["total_work"] / 1000).round(2).astype("Float64")
+        metadata_df["total_work"] = (raw_metadata_df["total_work"] / 1000).round(2).astype("Float64")
+
+    except (ValueError, TypeError) as e:
+        logger.critical(f"Error converting total work data from {filename}: {e}.")
+
+    except KeyError as e:
+        logger.warning(f"No column {e} present in raw metadata for {filename}.")
+
 
 # TOTAL_KJ/KG
 
     if weight:
+
         try:
+
             metadata_df["total_kj_kg"] = ((raw_metadata_df["total_work"] / 1000) / weight).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting total work/kj data from {filename}: {e}.")
+            logger.warning(f"Error creating total work/kj metric from {filename}: {e}.")
+
+        except KeyError as e:
+            logger.warning(f"No column {e} present in raw metadata for {filename}.")
+
 
 # TOTAL_DISTANCE
 
@@ -237,19 +283,24 @@ def extract_data(filepath:str) -> tuple:
     if "record_mesgs" in messages_keys:
 
         try:
+
             raw_data= messages.get('record_mesgs')
             raw_data_df= pd.DataFrame(raw_data)
+
         except Exception as e:
-            print(f"Error building raw data dataframe from {filename}. Data will be empty {e}.")
+            logger.error(f"Error building raw data dataframe from {filename}. Data will be empty {e}.")
             return raw_data_df, metadata_df
 
 ##### CHECK FOR ACCUMULATED POWER AVAILABLE #####
 
     if "accumulated_power" not in raw_data_df.columns:
+
         try:
+
             raw_data_df["accumulated_power"] = (raw_data_df["power"].cumsum() / 1000).round().astype("Int64")
+
         except Exception as e:
-            print(f"No power data to create accumulated power column from {filename}")
+            logger.warning(f"No power data in {filename} for creating accumulated power metric.")
 
 
 ##### POPULATE DATA DATAFRAME WITH INITIAL RAW DATA #####
@@ -274,11 +325,15 @@ def extract_data(filepath:str) -> tuple:
     c= "timestamp" in raw_data_cols
 
     if a and b and c :
+
         try:
+
             data_df["lap"] = (raw_data_df["timestamp"].isin(lap_df["timestamp"]) | 
                             raw_data_df["timestamp"].isin(lap_df["start_time"])).astype("boolean")
+            
         except (ValueError, TypeError) as e:
-            print(f"Error marking activity laps: {e}.")
+            logger.warning(f"Error marking activity laps: {e}.")
+            data_df["lap"] = False
 
 
 ## ACTIVITY ID
@@ -288,19 +343,37 @@ def extract_data(filepath:str) -> tuple:
 
 ## INTEGER COLUMNS
 
-    int64_raw_cols= ["power", "heart_rate", "temperature", "cadence","enhanced_respiration_rate",  "accumulated_power"]
-    int64_cols= ["power", "heart_rate", "temperature", "cadence","respiration_rate",  "accumulated_power"]
+    int64_raw_cols= [
+        "power",
+        "heart_rate",
+        "temperature",
+        "cadence",
+        "enhanced_respiration_rate", 
+        "accumulated_power"
+    ]
+    
+    int64_cols= [
+        "power",
+        "heart_rate",
+        "temperature",
+        "cadence",
+        "respiration_rate",
+        "accumulated_power"
+    ]
 
     for r_col, col in zip(int64_raw_cols, int64_cols):
 
         if r_col in raw_data_cols:
 
             try:
+
                 data_df[col]= raw_data_df[r_col].round().astype("Int64")
+
             except (ValueError, TypeError) as e:
-                print(f"Error converting {r_col} from {filename}: {e}.")
+                logger.critical(f"Error converting {r_col} datatype from {filename}: {e}.")
+
         else:
-            print(f"No data found for {r_col} from {filename}.")
+            logger.warning(f"No data found for {r_col} from {filename}.")
             
 
 ## POSITION LAT/LONG
@@ -312,10 +385,10 @@ def extract_data(filepath:str) -> tuple:
             data_df["position_lat"]= (raw_data_df["position_lat"] * semicircles).round(8).astype("Float64")
             data_df["position_long"]= (raw_data_df["position_long"] * semicircles).round(8).astype("Float64")
         except (ValueError, TypeError) as e:
-            print(f"Error converting position lat/long data from {filename}: {e}.")
+            logger.critical(f"Error converting position lat/long data from {filename}: {e}.")
 
     else:
-        print(f"No data found for position lat/long.")
+        logger.warning(f"No data found for position lat/long.")
 
 
 ## DISTANCE
@@ -323,12 +396,14 @@ def extract_data(filepath:str) -> tuple:
     if "distance" in raw_data_cols:
 
         try:
+
             data_df["distance"]= (raw_data_df["distance"] / 1000).round(3).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting distance data from {filename}: {e}.")
+            logger.critical(f"Error converting distance data from {filename}: {e}.")
 
     else:
-        print(f"No data found for distance in {filename}.") 
+        logger.warning(f"No data found for distance in {filename}.") 
 
 
 ## ELEVATION
@@ -337,18 +412,21 @@ def extract_data(filepath:str) -> tuple:
         
         try:
             data_df["elevation"]= (raw_data_df["altitude"]).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting elevation data from {filename}: {e}.")
+            logger.critical(f"Error converting elevation data from {filename}: {e}.")
 
     elif "enhanced_altitude" in raw_data_cols:
 
         try:
+
             data_df["elevation"]= (raw_data_df["enhanced_altitude"]).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting elevation data from {filepath}: {e}.")
+            logger.critical(f"Error converting elevation data from {filepath}: {e}.")
 
     else:
-        print(f"No data found for elevation in {filename}.") 
+        logger.warning(f"No data found for elevation in {filename}.") 
 
 
 ## SPEED
@@ -357,38 +435,45 @@ def extract_data(filepath:str) -> tuple:
 
         try:
             data_df["speed"]= (raw_data_df["speed"] * 3.6).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error with speed data from {filename}: {e}.")
+            logger.critical(f"Error converting speed data from {filepath}: {e}.")
 
     elif "enhanced_speed" in raw_data_cols:
 
         try:
+
             data_df["speed"]= (raw_data_df["enhanced_speed"] * 3.6).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting enhanced speed data from {filepath}: {e}.") 
+            logger.critical(f"Error converting enhanced speed data from {filepath}: {e}.") 
 
     else:
-        print(f"No data found for speed in {filename}.")
+        logger.warning(f"No data found for speed in {filename}.")
 
 
 ## TORQUE EFFECTIVENESS / PEDAL SMOOTHNESS
 
     torque_smoothness= [
-        "left_torque_effectiveness", "right_torque_effectiveness", 
-        "left_pedal_smoothness", "right_pedal_smoothness"
+        "left_torque_effectiveness", 
+        "right_torque_effectiveness", 
+        "left_pedal_smoothness",
+        "right_pedal_smoothness"
     ]
 
     for metric in torque_smoothness:
 
         if metric in raw_data_cols:
 
-            try: 
+            try:
+
                 data_df[metric]= raw_data_df[metric].round(1).astype(data_schema[metric])
+
             except (ValueError, TypeError) as e:
-                print(f"Error converting {metric} from {filename}: {e}.")
+                logger.critical(f"Error converting {metric} datatype from {filename}: {e}.")
 
         else:
-            print(f"No data found for {metric} in {filename}.")
+            logger.warning(f"No data found for {metric} in {filename}.")
 
 
 ##### ADITIONAL/DERIVATED METRICS #####
@@ -398,32 +483,40 @@ def extract_data(filepath:str) -> tuple:
     if "accumulated_power" in raw_data_cols:
         
         try:
+
             data_df["work"]= ((raw_data_df["accumulated_power"] / 1000)).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting work data from {filename}: {e}.")
+            logger.critical(f"Error converting work data from {filename}: {e}.")
 
     else:
-        print(f"No data found for work in {filename}.")
+        logger.warning(f"No data found for accumulated work in {filename}.")
 
 
 ## WEIGHT RELATED METRICS
 
     if weight:
 
-        try:    
+        try:
+
             if "accumulated_power" in raw_data_cols:
+
                 data_df["kj_kg"]= ((raw_data_df["accumulated_power"] / 1000) / weight).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting kj_kg data from {filename}: {e}.")
+            logger.critical(f"Error converting kj_kg data from {filename}: {e}.")
 
         try:
+
             if "power" in raw_data_cols:
+
                 data_df["w_kg"]= (raw_data_df["power"] / weight).round(2).astype("Float64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting w_kg data {filename}: {e}.")
+            logger.critical(f"Error converting w_kg data from {filename}: {e}.")
         
     else:
-        print(f"No data found for kj/kg and w/kg in {filename}.")
+        logger.warning(f"No data found for kj/kg and w/kg in {filename}.")
 
 
 ## L/R BALANCE
@@ -431,26 +524,31 @@ def extract_data(filepath:str) -> tuple:
     if "left_right_balance" in raw_data_cols:
         
         try:
+
             if manufacturer == "garmin":
                     data_df["balance_right"] = raw_data_df["left_right_balance"].round().astype("Int64") - 128
                     data_df["balance_left"] = 100 - (raw_data_df["left_right_balance"].round().astype("Int64") - 128)
+
             else:
+
                 data_df["balance_right"] = 100 - raw_data_df["left_right_balance"].round().astype("Int64")
                 data_df["balance_left"] = raw_data_df["left_right_balance"].round().astype("Int64")
+
         except (ValueError, TypeError) as e:
-            print(f"Error converting L/R balance data from {filename}: {e}.")
+            logger.critical(f"Error converting L/R balance data from {filename}: {e}.")
 
     else:
-        print(f"No data found fo L/R balance in {filename}.")
+        logger.warning(f"No data found fo L/R balance in {filename}.")
 
 
 ## POWER PHASE DATA
 
-    power_phase_columns= {"left_power_phase": ["left_power_phase_start","left_power_phase_end"],
-                        "right_power_phase": ["right_power_phase_start","right_power_phase_end"],
-                        "left_power_phase_peak": ["left_power_peak_start","left_power_peak_end"],
-                        "right_power_phase_peak": ["right_power_peak_start","right_power_peak_end"]
-                        }
+    power_phase_columns= {
+        "left_power_phase": ["left_power_phase_start","left_power_phase_end"],
+        "right_power_phase": ["right_power_phase_start","right_power_phase_end"],
+        "left_power_phase_peak": ["left_power_peak_start","left_power_peak_end"],
+        "right_power_phase_peak": ["right_power_peak_start","right_power_peak_end"]
+    }
 
     for key, cols in power_phase_columns.items():
 
@@ -459,11 +557,16 @@ def extract_data(filepath:str) -> tuple:
                 data_df[cols[0]] = raw_data_df[key].str[0].round(2).astype("Float64")
                 data_df[cols[1]] = raw_data_df[key].str[1].round(2).astype("Float64")
             except (ValueError, TypeError, KeyError) as e:
-                print(f"Error converting Power Phase Data from {filename}: {e}.")
+                logger.critical(f"Error converting Power Phase Data from {filename}: {e}.")
 
         else:
-            print(f"No power phase data for {key} in {filename}.")
+            logger.warning(f"No power phase data for {key} in {filename}.")
+    
+    
+    metadata_df= metadata_df.replace({pd.NA:None})
+    data_df= data_df.replace({pd.NA:None})
 
+    logger.info(f"Extracting and processing data process finished for {filename}")
     return data_df, metadata_df
 
 

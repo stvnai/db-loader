@@ -18,8 +18,9 @@
     </form>
 
     <form action="{{ url_for('main.results') }}" method="get">
-        <h2>Query results:</h2>
-        <h1 class="prediction-value">{{result}}</h1>
+        <h1>Batch processing results:</h1>
+        <h2 class="success-value">Sucessfull Insertions: {{success}}</h2>
+        <h2 class="failed-value">Failed Insertions: {{fails}}</h2>
 
         <button type="submit" class="reset-button">Return</button>
 

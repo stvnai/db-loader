@@ -1,4 +1,5 @@
 import os
+import logging
 import tempfile
 import pandas as pd
 from app.forms import InputForm, LoginForm
@@ -7,6 +8,8 @@ from app.decorators.auth_decorators import login_required
 from app.db.db_queries import auth_user
 from werkzeug.utils import secure_filename
 from app.multiprocessing_batch import process_batch
+
+logger=logging.getLogger(__name__)
 
 main= Blueprint("main", __name__)
 
@@ -44,7 +47,7 @@ def index():
     form= InputForm()
 
     if form.validate_on_submit():
-        print("Formulario válido")
+        logger.info("Data from Form retrieved successfully")
 
         name= form.name.data.lower()
         last_name= form.last_name.data.lower()
@@ -61,8 +64,7 @@ def index():
                 gender=gender)]
         ) 
 
-        for file in files:
-            print(file.filename)
+        logger.info(f"Batch size: {len(files)}")
 
         filepaths= []
         for file in files:
@@ -75,13 +77,20 @@ def index():
                 filepaths.append(filepath)
 
         if filepaths:
-            result= process_batch(filepaths, athlete_df)
-            session["result"]= result
+            check, successes, failures= process_batch(filepaths, athlete_df)
+            session["successes"]= successes
+            session["failures"]= failures
+            session["check"]= check
         
-        if result:
-            flash("Success", "success")
+        if check:
+            logger.info("Batch processed sucessfully.")
+            flash("Batch processed sucessfully.", "success")
             return redirect(url_for("main.results"))
-        
+        else:
+            logger.error("Error proccesing batch.")
+            flash("Error proccessing batch.", "danger")
+            return redirect(url_for("main.results"))
+
 
     return render_template("index.html", form= form)
 
@@ -91,11 +100,13 @@ def index():
 @login_required
 def results():
 
-    result= session.pop("result", None)
-    if result is None:
+    success= session.pop("successes", None)
+    fails= session.pop("failures", None)
+    check= session.pop("check", None)
+    if not check:
         return redirect(url_for("main.index"))
       
-    return render_template("results.html", result = "Batch uploaded succesfully!") 
+    return render_template("results.html",  success= success, fails= fails) 
 
 ### LOGOUT ###
 
@@ -104,6 +115,7 @@ def results():
 
 
 def logout():
+    
     """Close session and redirect to /login"""
 
     session.pop("user_id", None)

@@ -1,15 +1,21 @@
 import re
+import logging
 from datetime import date
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField, DateField, StringField, PasswordField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_wtf.file import FileAllowed, FileRequired, MultipleFileField
 
+
+logger= logging.getLogger(__name__)
+
+
                     ### CUSTOM VALIDATORS ###
 
 def validate_username(form, field):
-    if not re.match(r"^[a-zA-ZA0-9_.-]+$",field.data):
+    if not re.match(r"^[a-zA-ZA0-9_.-]+$",field.data):        
         raise ValidationError("Only letters, numbers, '-', '_' or '.' are allowed.")
+        
 
 def validate_date(form, field):
     date_of_birth= field.data

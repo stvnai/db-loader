@@ -3,19 +3,24 @@ from werkzeug.security import check_password_hash
 from sqlalchemy import text
 from sqlalchemy import Engine
 from pandas import DataFrame
+import logging
 
+logger= logging.getLogger(__name__)
 
 
 try:
+
     ENGINE= get_sqlachemy_engine()
+
 except Exception as e:
-    print(f"Something goes wrong connecting with database: {e}.")
+    logger.critical(f"Something goes wrong connecting with database: {e}.")
+    
     ENGINE= None
 
 def auth_user(username:str, password:str, engine: Engine = ENGINE) -> bool:
 
     if engine is None:
-        print("No database engine available.")
+        logger.critical("No database engine available.")
         return False
     
     query= text("""
@@ -28,24 +33,27 @@ def auth_user(username:str, password:str, engine: Engine = ENGINE) -> bool:
     values= {"username":username}
 
     try:
+
         with engine.connect() as conn:
         
             result= conn.execute(query, values)
             stored_hash= result.scalar_one_or_none()
+
             if stored_hash is not None:
                 return check_password_hash(stored_hash, password)
+            
             else:
                 return False
             
     except Exception as e:
-        print("Error during authentication.")
+        logger.critical("Error during authentication.")
         return False
     
 
 def athlete_query(athlete_df: DataFrame, engine: Engine = ENGINE) -> int:
     
     if engine is None:
-        print("No database engine available.")    
+        logger.critical("No database engine available.")    
         return None
     
     select_query= text("""
@@ -75,6 +83,7 @@ def athlete_query(athlete_df: DataFrame, engine: Engine = ENGINE) -> int:
     }
 
     try:
+
         with engine.begin() as conn:
 
             check_athlete_result= conn.execute(select_query, select_query_values)
@@ -83,31 +92,32 @@ def athlete_query(athlete_df: DataFrame, engine: Engine = ENGINE) -> int:
             if athlete_id is None:
                     insert_athlete_result= conn.execute(insert_query, insert_query_values)
                     athlete_id= insert_athlete_result.scalar_one_or_none()
-
             return athlete_id
 
     except Exception as e:
-        print(f"Error during athlete query insertion: {e}.")
+        logger.error(f"Error inserting metadata into athlete table: {e}.")
         return None
             
 
 def insert_metadata_query(athlete_id:int | None, metadata_df: DataFrame, engine:Engine = ENGINE) -> int:
 
     if engine is None:
-        print("No database engine available.")
+        logger.critical("No database engine available.")
         return None
     
     if athlete_id is None:
-        print("No athlete_id retrieved for this transaction.")
+        logger.error("No athelete_id info. INSERT INTO metadata table will not be executed.")
         return None
     
     try:
+
         metadata_df["athlete_id"] = athlete_id
         metadata_columns= ", ".join(metadata_df.columns)
         metadata_placeholders= ", ".join([f":{c}" for c in metadata_df.columns])
         metadata_values= {col: metadata_df[col].iloc[0] for col in metadata_df.columns}
+
     except Exception as e:
-        print(f"Error preparing metadata before insertion query: {e}")
+        logger.error(f"Error preparing metadata before INSERT INTO query: {e}")
         return None
     
     insert_metadata= text(f"""
@@ -115,37 +125,36 @@ def insert_metadata_query(athlete_id:int | None, metadata_df: DataFrame, engine:
                           VALUES ({metadata_placeholders})
                           ON CONFLICT
                           ON CONSTRAINT unique_athlete_and_timestamp DO NOTHING
-                          RETURNING activity_id, athlete_id, timestamp  
+                          RETURNING activity_id  
                           """)
     
     try:
+
         with engine.begin() as conn:
 
             result_insert_metadata= conn.execute(insert_metadata, metadata_values)
-            row= result_insert_metadata.first()
-            print(row)
-
-            if row is None:
-                print(f"Activity already exists for this athlete ID and timestamp.")
+            activity_id= result_insert_metadata.scalar_one_or_none()
+            
+            if activity_id is None:
+                logger.warning(f"An activity with identical athlete ID and timestamp already exists.")
                 return None
             
-            activity_id= row[0]
             return activity_id
     
     except Exception as e:
-        print(f"Error during metadata insertion query: {e}.")
+        logger.error(f"Error inserting metadata into activity table: {e}.")
         return None
     
 
 def insert_data_query(activity_id: int | None, data_df:DataFrame, engine:Engine = ENGINE) -> bool:
 
     if engine is None:
-        print("No database engine available.")
-        return 
+        logger.critical("No database engine available.")
+        return False
     
     if activity_id is None:
-        print("No activity_id retrieved for this transaction.")
-        return 
+        logger.error("No activity_id info. INSERT INTO activity table will not be executed.")
+        return False
     
     data_df["activity_id"] = activity_id
 
@@ -163,8 +172,8 @@ def insert_data_query(activity_id: int | None, data_df:DataFrame, engine:Engine 
         try:
             conn.execute(insert_data, data_values)
         except Exception as e:
-            print(f"Error inserting data transaction: {e}.")
-            return 
+            logger.error(f"Error inserting data into activity table: {e}.")
+            return False
         
     return True
 
