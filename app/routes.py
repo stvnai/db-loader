@@ -4,7 +4,7 @@ import pandas as pd
 from app.forms import InputForm, LoginForm
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from app.decorators.auth_decorators import login_required
-from app.db.user_queries import auth_user
+from app.db.db_queries import auth_user
 from werkzeug.utils import secure_filename
 from app.multiprocessing_batch import process_batch
 
@@ -51,7 +51,7 @@ def index():
         dob= form.date_of_birth.data
         gender= form.gender.data
         files= form.file_upload.data
-        # print(f"Archivos subidos: {form.file_upload.data}")
+        
 
         athlete_df= pd.DataFrame([
             dict(
@@ -75,12 +75,13 @@ def index():
                 filepaths.append(filepath)
 
         if filepaths:
-            process_batch(filepaths, athlete_df)
-
+            result= process_batch(filepaths, athlete_df)
+            session["result"]= result
+        
+        if result:
             flash("Success", "success")
-            return redirect(url_for("main.index"))
-        else:
-            flash("No files in filepaths", "danger")
+            return redirect(url_for("main.results"))
+        
 
     return render_template("index.html", form= form)
 
@@ -89,10 +90,12 @@ def index():
 @main.route("/results", methods=["GET"])
 @login_required
 def results():
-    
-        
 
-    return render_template("results.html", prediction = prediction) 
+    result= session.pop("result", None)
+    if result is None:
+        return redirect(url_for("main.index"))
+      
+    return render_template("results.html", result = "Batch uploaded succesfully!") 
 
 ### LOGOUT ###
 
