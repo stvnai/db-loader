@@ -3,4 +3,4 @@
 __pycache__/
 data/
 .code-workspace
-app/auth/test-connection.py
+.app/auth/
