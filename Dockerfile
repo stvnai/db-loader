@@ -1,16 +1,16 @@
 FROM python:3.12.11-slim
 
 
-WORKDIR /carbsense
+WORKDIR /dbloader
 
 COPY . .
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-EXPOSE 8000
+EXPOSE 8001
 
-CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8000", "run:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8001", "run:app"]
 
 
 

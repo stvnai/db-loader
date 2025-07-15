@@ -1,10 +1,10 @@
-import pandas as pd
-import numpy as np
-from garmin_fit_sdk import Stream, Decoder
 import os
-import logging
+import numpy as np
+import pandas as pd
+from garmin_fit_sdk import Stream, Decoder
+from app.set_logging import set_module_logger
 
-logger= logging.getLogger(__name__)
+logger= set_module_logger(__name__)
 
 
                     ##########  DATA AND METADATA SCHEMAS  ##########

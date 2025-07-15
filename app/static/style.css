@@ -27,7 +27,7 @@ h1{
     
 }
 
-h2{ margin-top: 80px;
+h2{ margin-top: 50px;
     margin-bottom: 20px;
     text-align: center;
     color: #198FB3;
@@ -47,6 +47,7 @@ h2{ margin-top: 80px;
     width: 215px;
     height: 30px;
     border: 2px solid transparent;
+    margin-top: 5px;
     margin-bottom: 5px;
     border-radius: 15px;
     background-color: #333333;
@@ -297,7 +298,7 @@ transform: scale(0.95);
     margin-top: 25px;
     background-color: #141414;
     color: #10CDE6;
-    padding: 8px 73px;
+    padding: 8px 50px;
     border: 1.5px solid #10CDE6;
     border-radius: 20px;
     cursor: pointer;
@@ -456,7 +457,7 @@ input:checked + .slider::before {
                     
 .flash-message.success {
     
-    color: #78FF6E;
+    color: #4caf50;
     ;
 }
 
@@ -511,56 +512,91 @@ input[type="number"] {
     z-index: 2;
 }
 
-/* Botón personalizado que se ve como tus otros inputs */
-.file-upload-display {
+/* SELECT LISTS */
+
+.select-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.select-dark {
+    display: block;
     width: 215px;
     height: 30px;
-    background-color: #333333;
-    color: #CCCCCC;
     border: 2px solid transparent;
+    margin-bottom: 5px;
     border-radius: 15px;
-    padding: 0 8px;
-    font-size: medium;
-    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    font-size: 14px;
+    border: 1px solid #198FB3;
+    border-radius: 8px;
+    background-color: #141414;
+    color: #CCCCCC;
     cursor: pointer;
-    transition: all 0.2s ease-out;
+    transition: all 0.3s ease;
 }
 
-.file-upload-display:hover {
-    border-color: #10CDE6;
-    color: #10CDE6;
-}
-
-.file-upload-text {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.file-upload-icon {
-    color: #10CDE6;
-    font-size: 16px;
-    margin-left: 8px;
-}
-
-/* Texto cuando no hay archivos seleccionados */
-.file-upload-placeholder {
-    color: #999999;
-    opacity: 0.5;
-    font-style: normal;
-}
-
-/* Contador de archivos */
-.file-count {
+.select-dark:hover {
+    
     background-color: #10CDE6;
+    color: #141414;
+}
+
+.select-dark:focus {
+    outline: none;
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.25);
+}
+
+.select-dark option {
+    background-color: #141414;
+    color: #CCCCCC;
+}
+
+.file-upload-container {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    position: relative;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+.file-upload-button {
+    display: inline-block;
+    padding: 8px 50px;
+    margin-top: 50px;
+    background-color: transparent;
+    color: #10CDE6;
+    border: 1px solid #10CDE6;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.4s ease, transform 0.2s ease;
+}
+
+.file-upload-button:hover {
+    background-color: #10CDE6;
+    border: 1px solid #10CDE6;
     color: #050505;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 8px;
+    transform: scale(1.03);   
+}
+
+
+
+.process-button:active {
+    transform: scale(0.95);  
+}
+
+.file-upload-input:valid + .file-upload-button {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #141414;
+}
+
+.file-upload-input:valid + .file-upload-button::after {
+    content: " ✓";
 }

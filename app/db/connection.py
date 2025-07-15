@@ -15,4 +15,12 @@ def get_sqlachemy_engine():
 
     db_url= f"postgresql+psycopg://{user}:{password}@{host}:{port}/{dbname}"
 
-    return create_engine(db_url, echo=False, future=True)
+    
+    
+    return create_engine(
+        db_url,
+        echo=False,
+        future=True,
+        pool_size= 10,
+        max_overflow=5,
+        pool_timeout=30)

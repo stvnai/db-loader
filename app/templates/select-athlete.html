@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Athlete</title>
+    <title>Select Athlete</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <form action="{{ url_for('main.logout') }}" method="get">
+    <form action="{{ url_for('main.logout') }}" method="GET">
         <button type="submit" class="logout-button">Log Out</button>
-
     </form>
-    
-    
-    <h1>Register New Athlete</h1>
-    <form  method= "post" class="general-form">
-        
+
+    <form action="{{ url_for('main.select_athlete') }}" method="POST"  enctype="multipart/form-data">
+
+        <h1>Select Athlete</h1>
+
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -33,38 +31,34 @@
     
         {% endwith %}
         
-        {{form.hidden_tag()}}
-        <div>
-            {{ form.name.label }}
-            {{ form.name(class="inputs_db") }}
+        <div class="select-container">
+            <select name="athlete_index" required class="select-dark">
+                <option value="" disabled selected> Select an athlete </option>
+                {% for label in visible_labels %}
+                    <option value="{{ loop.index0 }}">{{ label }} </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        
+        <div class="file-upload-container">
+            {{form.hidden_tag()}}
+            <!-- {{ form.file_upload.label }} -->
+            {{ form.file_upload(class="file-upload-input", multiple=True, accept=".fit,.FIT") }}
+            <label for="{{ form.file_upload.id }}" class="file-upload-button">Upload .FIT Files</label>
         </div>
 
         <div>
-            {{ form.last_name.label }}
-            {{ form.last_name(class="inputs_db") }}
-        </div>
-
-        <div>
-            {{ form.gender.label }}
-            {{ form.gender(class="inputs_db") }}
-        </div>
-
-        <div>
-            {{ form.date_of_birth.label }}
-            {{ form.date_of_birth(class="inputs_db") }}
-        </div>
-
-
-        <div>
-        {{form.submit(class="process-button")}}
+            {{form.submit(class="process-button")}}
         </div>
 
         <div class="sign-link">
-            <p class="account-actions">Athlete is registered?</p> 
-            <a href="{{ url_for('main.select_athlete') }}", class="sign-link">Select Athlete</a>        
+            <p class="account-actions">Athlete not in list?</p> 
+            <a href="{{ url_for('main.index') }}" class="sign-link">Register athlete</a>        
 
         </div>
+
     </form>
-    
+
 </body>
 </html>

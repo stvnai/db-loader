@@ -1,15 +1,15 @@
 import os
-import logging
 import tempfile
 import pandas as pd
-from app.forms import InputForm, LoginForm
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from app.decorators.auth_decorators import login_required
-from app.db.db_queries import auth_user
+from app.db.db_queries import auth_user, athlete_list, insert_new_athlete
+from app.forms import InputForm, LoginForm, UploadFiles
 from werkzeug.utils import secure_filename
+from app.set_logging import set_module_logger
 from app.multiprocessing_batch import process_batch
+from app.decorators.auth_decorators import login_required
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, get_flashed_messages
 
-logger=logging.getLogger(__name__)
+logger=set_module_logger(__name__)
 
 main= Blueprint("main", __name__)
 
@@ -17,6 +17,11 @@ main= Blueprint("main", __name__)
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
+
+    # if request.method == "GET":
+    #     get_flashed_messages()
+
+
     login_form= LoginForm()
 
     if login_form.validate_on_submit():
@@ -27,7 +32,7 @@ def login():
         user_id= auth_user(username, password)
         if user_id:
             session["user_id"] = user_id
-            return redirect(url_for("main.index"))
+            return redirect(url_for("main.select_athlete"))
         
         
         else:
@@ -37,32 +42,25 @@ def login():
     return render_template("login.html", login_form=LoginForm())
 
 
+### SELECT AND UPLOAD ATHLETE
 
-### MAIN FORM ###
-
-@main.route("/", methods=["GET", "POST"])
+@main.route("/select-athlete", methods=["GET","POST"])
 @login_required
-def index():
+def select_athlete():
 
-    form= InputForm()
+
+    visible_labels, raw_data= athlete_list()
+    session["athlete_data"]= raw_data
+
+    form= UploadFiles()
 
     if form.validate_on_submit():
-        logger.info("Data from Form retrieved successfully")
-
-        name= form.name.data.lower()
-        last_name= form.last_name.data.lower()
-        dob= form.date_of_birth.data
-        gender= form.gender.data
-        files= form.file_upload.data
         
+        files= form.file_upload.data
+        index= int(request.form["athlete_index"])
+        selected_athlete= session["athlete_data"][index]
 
-        athlete_df= pd.DataFrame([
-            dict(
-                name=name,
-                last_name=last_name,
-                date_of_birth=dob,
-                gender=gender)]
-        ) 
+        athlete_df= pd.DataFrame([selected_athlete]) 
 
         logger.info(f"Batch size: {len(files)}")
 
@@ -83,16 +81,65 @@ def index():
             session["check"]= check
         
         if check:
-            logger.info("Batch processed sucessfully.")
             flash("Batch processed sucessfully.", "success")
             return redirect(url_for("main.results"))
+        
         else:
             logger.error("Error proccesing batch.")
             flash("Error proccessing batch.", "danger")
             return redirect(url_for("main.results"))
 
 
+    return render_template("select-athlete.html", visible_labels = visible_labels, form= form)
+
+
+
+### REGISTER ATHLETE ###
+
+@main.route("/", methods=["GET", "POST"])
+@login_required
+def index():
+
+    # if request.method == "GET":
+    #     get_flashed_messages()
+
+    form= InputForm()
+
+    if form.validate_on_submit():
+        logger.info("Data from register athlete form retrieved successfully")
+
+        name= form.name.data.lower()
+        last_name= form.last_name.data.lower()
+        dob= form.date_of_birth.data
+        gender= form.gender.data
+    
+        
+
+        athlete_df= pd.DataFrame([
+            dict(
+                name=name,
+                last_name=last_name,
+                date_of_birth=dob,
+                gender=gender)]
+        ) 
+
+        check_insert= insert_new_athlete(athlete_df)
+
+        if check_insert:
+            flash("Athlete registered successfully.", "success")
+            return redirect(url_for("main.select_athlete"))
+        
+        elif not check_insert:
+            flash("Trying to register an already existing athlete.", "danger")
+            return redirect(url_for("main.index"))
+        
+        else:
+            flash("Error trying to register athlete.", "danger")
+            return redirect(url_for("main.index"))
+
+        
     return render_template("index.html", form= form)
+
 
 ### RESULTS ###
 
@@ -104,7 +151,7 @@ def results():
     fails= session.pop("failures", None)
     check= session.pop("check", None)
     if not check:
-        return redirect(url_for("main.index"))
+        return redirect(url_for("main.select_athlete"))
       
     return render_template("results.html",  success= success, fails= fails) 
 
@@ -118,7 +165,13 @@ def logout():
     
     """Close session and redirect to /login"""
 
-    session.pop("user_id", None)
+    session.clear()
     return redirect(url_for("main.login"))
+
+
+
+
+
+
 
 

@@ -13,16 +13,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form action="{{ url_for('main.logout') }}" method="get">
+    <form action="{{ url_for('main.logout') }}" method="GET">
         <button type="submit" class="logout-button">Log Out</button>
     </form>
 
-    <form action="{{ url_for('main.results') }}" method="get">
+    <form action="{{ url_for('main.results') }}" method="GET">
         <h1>Batch processing results:</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="flash-message {{ category }}">{{ message }}</p>
+                {% endfor %}
+    
+            {% endif %}
+    
+        {% endwith %}
         <h2 class="success-value">Sucessfull Insertions: {{success}}</h2>
         <h2 class="failed-value">Failed Insertions: {{fails}}</h2>
 
-        <button type="submit" class="reset-button">Return</button>
+    <a href="{{ url_for('main.select_athlete') }}">
+        <button type="button" class="reset-button">Return</button>
+    </a>    
 
 
 

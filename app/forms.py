@@ -7,7 +7,7 @@ from wtforms.validators import InputRequired, Length, ValidationError
 from flask_wtf.file import FileAllowed, FileRequired, MultipleFileField
 
 
-logger= logging.getLogger(__name__)
+
 
 
                     ### CUSTOM VALIDATORS ###
@@ -76,15 +76,29 @@ class InputForm(FlaskForm):
 
         ]
     )
+    # file_upload= MultipleFileField(
+    #     "Select .fit Files",
+    #     validators= [
+    #         FileAllowed(["fit", "FIT"], ".fit files only."),
+    #         FileRequired()
+    #     ]
+    # )
+
+    submit= SubmitField("Register")
+
+class UploadFiles(FlaskForm):
+
     file_upload= MultipleFileField(
-        "Select .fit Files",
+        "Select .FIT Files",
         validators= [
             FileAllowed(["fit", "FIT"], ".fit files only."),
             FileRequired()
         ]
     )
 
-    submit= SubmitField("upload")
+    submit= SubmitField("Process and load")
+
+
 
 
         ### LOGIN FIELDS ###
