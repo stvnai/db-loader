@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
+from sqlalchemy.pool import QueuePool
 from urllib.parse import quote_plus
 
 load_dotenv()
@@ -21,6 +22,14 @@ def get_sqlachemy_engine():
         db_url,
         echo=False,
         future=True,
-        pool_size= 10,
-        max_overflow=5,
-        pool_timeout=30)
+        pool_size= 5,
+        max_overflow=2,
+        pool_timeout=60,
+        pool_pre_ping=True,
+        pool_recycle=3600,
+        connect_args={
+                "connect_timeout": 30,
+                "application_name": "flask_app",
+                "options": "-c statement_timeout=30000"
+                }
+            )

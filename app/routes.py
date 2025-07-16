@@ -61,7 +61,6 @@ def select_athlete():
         selected_athlete= session["athlete_data"][index]
 
         athlete_df= pd.DataFrame([selected_athlete]) 
-
         logger.info(f"Batch size: {len(files)}")
 
         filepaths= []
@@ -74,19 +73,25 @@ def select_athlete():
 
                 filepaths.append(filepath)
 
+        session["batch_size"]= len(filepaths)
+
         if filepaths:
             check, successes, failures= process_batch(filepaths, athlete_df)
             session["successes"]= successes
             session["failures"]= failures
             session["check"]= check
         
-        if check:
-            flash("Batch processed sucessfully.", "success")
+        if check and failures == 0:
+            flash("Batch processed. All files loaded sucessfully.", "success")
             return redirect(url_for("main.results"))
         
-        else:
+        elif check and failures > 1:
+            flash("Batch processed. Some files were not uploaded.", "warning")
+            return redirect(url_for("main.results"))
+        
+        elif not check:
             logger.error("Error proccesing batch.")
-            flash("Error proccessing batch.", "danger")
+            flash("Files not uploaded.", "danger")
             return redirect(url_for("main.results"))
 
 
@@ -150,10 +155,11 @@ def results():
     success= session.pop("successes", None)
     fails= session.pop("failures", None)
     check= session.pop("check", None)
+    batch_size= session.pop("batch_size", None)
     if not check:
         return redirect(url_for("main.select_athlete"))
       
-    return render_template("results.html",  success= success, fails= fails) 
+    return render_template("results.html",  success= success, fails= fails, batch_size=batch_size) 
 
 ### LOGOUT ###
 

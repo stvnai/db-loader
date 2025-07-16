@@ -461,6 +461,12 @@ input:checked + .slider::before {
     ;
 }
 
+.flash-message.warning {
+    
+    color: #FFAE33;
+    ;
+}
+
 
 /* ### DANGER FLASH MESSAGES ### */
 

@@ -10,9 +10,10 @@ def populate_db(athlete_df, metadata_df, data_df):
     result= insert_data_query(activity_id, data_df)
     if result:
         logger.info("Query commited sucessfully.")
-
+        return result
     else:
         logger.warning("Query not commited.")
+        return False
        
 
 

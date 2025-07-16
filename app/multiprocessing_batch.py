@@ -15,9 +15,9 @@ def process_and_insert(filepath, athlete_df):
     try:
 
         data_df, metadata_df= extract_data(filepath)
-        populate_db(athlete_df, metadata_df, data_df)
+        result= populate_db(athlete_df, metadata_df, data_df)
 
-        return True
+        return result
     
     except Exception as e:
         logger.error(f"Error processing {filename}: {e}")
@@ -45,8 +45,8 @@ def process_batch(filepaths:list, athlete_df)-> None:
                 successes= sum(results)
                 failures= len(results) - successes
         
-        logger.info("Batch processed sucessfully.")
-        return True, successes, failures
+            logger.info("Batch processed sucessfully.")
+            return True, successes, failures
     
     except Exception as e:
         logger.error(f"Error processing batch: {e.args}")

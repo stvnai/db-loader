@@ -29,8 +29,9 @@
             {% endif %}
     
         {% endwith %}
-        <h2 class="success-value">Sucessfull Insertions: {{success}}</h2>
-        <h2 class="failed-value">Failed Insertions: {{fails}}</h2>
+        <h2 class="batch-size">Batch Size: {{batch_size}}</h2>
+        <h2 class="success-value">Loaded Files: {{success}}</h2>
+        <h2 class="failed-value">Not loaded files: {{fails}}</h2>
 
     <a href="{{ url_for('main.select_athlete') }}">
         <button type="button" class="reset-button">Return</button>
