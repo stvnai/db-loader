@@ -1,10 +1,7 @@
 import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.pool import QueuePool
 from urllib.parse import quote_plus
 
-load_dotenv()
 
 def get_sqlachemy_engine():
 

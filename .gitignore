@@ -1,7 +1,7 @@
 .env
-.venv
+.venv/
 __pycache__/
 data/
 .code-workspace
-app/auth/
-test-connection.py
+/app/auth/
+test_connection.py

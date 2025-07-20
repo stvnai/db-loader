@@ -12,3 +12,4 @@ DockerFile
 .github/
 data/
 .code-workspace
+.test_connection.py
