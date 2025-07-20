@@ -2,7 +2,7 @@ import re
 import logging
 from datetime import date
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, SelectField, DateField, StringField, PasswordField
+from wtforms import SubmitField, HiddenField, DateField, StringField, PasswordField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_wtf.file import FileAllowed, FileRequired, MultipleFileField
 
@@ -53,21 +53,14 @@ class InputForm(FlaskForm):
             Length(max=75)
         ]
     )
-    
-    gender= SelectField(
-        "Sex",
-        choices=[
-            ("male", "Male"),
-            ("female", "Female"),
-            ("transwoman", "Trans woman"),
-            ("transman", "Trans man"),
-        ],
-
+    gender= HiddenField(
+        "Gender",
         validators= [
-            InputRequired()
+            InputRequired(),
+            Length(max=75)
         ]
     )
-
+    
     date_of_birth= DateField(
         "Date of Birth",
         validators=[
@@ -96,7 +89,7 @@ class UploadFiles(FlaskForm):
         ]
     )
 
-    submit= SubmitField("Process and load")
+    submit= SubmitField("Load Data")
 
 
 
@@ -106,7 +99,7 @@ class UploadFiles(FlaskForm):
 
 class LoginForm(FlaskForm):
     username= StringField(
-        "username",
+        "Username",
         validators= [
             InputRequired(),
             Length(max=150),
@@ -116,7 +109,7 @@ class LoginForm(FlaskForm):
             
 
     password= PasswordField(
-        "password",
+        "Password",
         validators= [
             InputRequired(),
             Length(max=50)

@@ -1,0 +1,675 @@
+                        
+                        
+                        
+                        /* *******##### BODY AND HEADERS SETTINGS #####******* */
+
+/* ***##### BODY #####*** */
+
+body {
+    font-family:"Plus Jakarta Sans",  'Noto Sans', 'Arial', sans-serif;
+    background-color: #141414;
+    padding: 10px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+
+/* ***##### HEADERS #####*** */
+
+h1{
+    text-align: center;
+    font-family: "Plus Jakarta Sans", "Noto Sans";
+    
+    color: #CCCCCC;
+    font-size: 35px;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    
+}
+
+h2{ margin-top: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #198FB3;
+}
+
+
+
+                        /* *******##### INPUT FIELDS #####******* */
+
+/* ***##### INPUT LOGIN DATA #####*** */
+
+.input-login {
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    text-align: left;
+    text-indent: 8px;
+    font-size: medium;
+    width: 215px;
+    height: 30px;
+    border: 2px solid transparent;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #333333;
+    color: #CCCCCC;
+
+}
+
+.input-login:focus {
+    border-color: transparent;
+    outline: none;
+}
+
+.input-login::placeholder {
+    color: #999999;
+    opacity: 0.5;
+    font-style: normal;
+}
+
+
+/* ***##### INPUT SIGN UP DATA #####*** */
+                    
+.input-signup {
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    text-align: left;
+    text-indent: 8px;
+    font-size: medium;
+    width: 215px;
+    height: 30px;
+    border: 2px solid transparent;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #333333;
+    color: #CCCCCC;
+
+}
+
+.input-signup:focus {
+    border-color: transparent;
+    outline: none;
+}
+
+.input-signup::placeholder {
+    color: #999999;
+    opacity: 0.5;
+    font-style: normal;
+}
+
+
+/* ***##### INPUT CALCULATE DATA #####*** */
+
+.general-form {margin-top: 20px;
+    color: #CCCCCC;
+    max-width: fit-content;
+    margin: auto; 
+}
+
+.link-info-text {
+    position:relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    font-family: "Plus Jakarta Sans", "Noto Sans" sans-serif;
+    color: #CCCCCC;
+    max-width: fit-content;
+    margin: auto; 
+}
+
+label {
+    display:block;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.inputs_db {
+    text-align: left;
+    text-indent: 8px;
+    font-size: medium;
+    width: 215px;
+    height: 30px;
+    border: 2px solid transparent;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #333333;
+    color: #CCCCCC;
+
+}
+
+.inputs_sb:focus {
+  border-color: transparent;
+  outline: none;
+}
+
+.input_db::placeholder {
+    color: #999999;
+    opacity: 0.5;
+    font-style: normal;
+}
+
+
+/* ***##### INPUT UNITS DATA #####*** */
+
+.unit-labels {
+    padding-bottom: 4%;
+    display: flex;
+    text-align: center;
+    font-size: 12px;
+    color: #CCCCCC;   
+}
+
+.unit-toggle {
+    display: flex;
+    flex-direction:row-reverse;
+    align-items: baseline;
+    gap: 10px;
+}
+
+
+
+                    /* *******##### OUTPUT FIELDS #####******* */
+
+/* ***##### RESULTS PAGE #####*** */
+
+.success-value {
+    margin-top: 5px;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;
+    color: #198FB3;
+}
+.failed-value {
+    margin-top: 5px;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;
+    color: #198FB3;
+}
+
+
+
+                    /* *******##### BUTTONS #####******* */
+
+/* ***##### REGISTER BUTTON #####*** */
+
+.signup-button {
+display: block;
+margin: auto;
+margin-top: 25px;
+margin-bottom: 20px;
+background-color: #141414;
+color: #10CDE6;
+padding: 8px 73px;
+border: 1px solid #10CDE6;
+border-radius: 20px;
+cursor: pointer;
+font-size: 16px;
+transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+font-weight: bold;
+
+}
+
+.signup-button:hover {
+background-color: #10CDE6;
+border: 1px solid #10CDE6;
+color: #050505;
+transform: scale(1.03);
+
+}
+
+.signup-button:active {
+transform: scale(0.95);
+
+}
+
+
+/* ### LOGIN BUTTON ### */
+
+.login-button {
+    display: block;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 8px 73px;
+    border: 1px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    font-weight: bold;
+    
+}
+
+.login-button:hover {
+    background-color: #10CDE6;
+    border: 1px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.03);
+    
+    
+}
+
+.login-button:active {
+    transform: scale(0.95);
+    
+}
+
+
+/* ### LOGOUT BUTTON ### */
+
+.logout-button {
+    position: fixed;
+    display: block;
+    align-items: left;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 5px 20px;
+    border: 1px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.4s ease, transform 0.2s ease;
+    font-family: Noto Sans;
+    font-weight: bold;
+    
+}
+
+.logout-button:hover {
+    background-color: #141414;
+    border: 1px solid #E6474C;
+    color: #E6474C;
+    transform: scale(1.03);  
+}
+
+.logout-button:active {
+    transform: scale(0.95);
+}
+
+
+/* ***##### LOAD DATA BUTTON #####*** */
+
+.load-data-button-container {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+}
+                                    
+.load-data-button {
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 8px 50px;
+    border: 1.5px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    font-weight: bold;  
+}
+
+.load-data-button:hover {
+    background-color: #10CDE6;
+    border: 1px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.03);   
+}
+
+.load-data-button:active {
+    transform: scale(0.95);  
+}
+/* ***##### REGISTER ATHLETE BUTTON #####*** */
+
+.register-athlete-button-container {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+}
+                                    
+.register-athlete-button {
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 8px 50px;
+    border: 1.5px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    font-weight: bold;  
+}
+
+.register-athlete-button:hover {
+    background-color: #10CDE6;
+    border: 1px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.03);   
+}
+
+.register-athlete-button:active {
+    transform: scale(0.95);  
+}
+
+
+/* ***##### RESET BUTTON #####*** */
+
+.reset-button {
+    display: block;
+    margin: auto;
+    align-items: center;
+    margin-top: 50px;
+    background-color: #141414;
+    color: #10CDE6;
+    padding: 8px 73px;
+    border: 1.5px solid #10CDE6;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.4s ease, transform 0.2s ease;
+    font-family: Noto Sans;
+    font-weight: bold;
+    
+}
+
+.reset-button:hover {
+    background-color: #10CDE6;
+    border: 2px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.05);  
+}
+
+
+/* ***##### SIGNUP/SIGNIN LINKS #####*** */
+
+.register-athlete-link-container {
+    position: relative;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+}
+
+.register-athlete-link-container .register-athlete-link  {
+    display: inline;
+    margin-top: 25px;
+    text-align: center;
+    font-size: 15px;
+    
+    color: #10CDE6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-athlete-link a:visited {
+    color: #198FB3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-athlete-link a:hover {
+    color: #10CDE6;
+    text-decoration: underline;
+}
+
+/* SELECT ATHLETE LINK */
+.select-athlete-link-container {
+    position: relative;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+}
+
+.select-athlete-link-container .select-athlete-link  {
+    display: inline;
+    margin-top: 25px;
+    text-align: center;
+    font-size: 15px;
+    
+    color: #10CDE6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.select-athlete-link a:visited {
+    color: #198FB3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.select-athlete-link a:hover {
+    color: #10CDE6;
+    text-decoration: underline;
+}
+
+
+
+
+
+                    /* *****### FLASH MESSAGES AND ALERTS ###***** */
+
+/* ### FLASH MESSAGES GENERAL SETTINGS ### */
+
+.flash-message {
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: "Noto Sans", sans-serif;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* ### SUCCESS FLASH MESSAGES ### */
+                    
+.flash-message.success {
+    
+    color: #4caf50;
+    ;
+}
+
+.flash-message.warning {
+    
+    color: #FFAE33;
+    ;
+}
+
+
+/* ### DANGER FLASH MESSAGES ### */
+
+.flash-message.danger {
+    
+    color: #E6474C;
+    ;
+}
+
+
+
+                    /* *****### ANOTHER GENERAL SETTINGS ###***** */
+
+
+/* ***##### DEVICES #####*** */
+
+@media (max-width: 580px) {
+    .toggle-group {
+        vertical-align: center;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Ocultar el input file original pero mantenerlo funcional */
+.file-upload-wrapper input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* SELECT LISTS */
+
+.select-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.select-list {
+  
+    text-indent: 8px;
+    width: 222px;
+    height: 35px;
+    display: block;
+    border-radius: 25px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    background-color: #333333;
+    color: #CCCCCC;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+.select-list:focus {
+    outline: none;
+    border-color: #10CDE6;
+    /* box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.25); */
+}
+
+.select-list option {
+    
+    
+    background-color: #141414;
+    color: #CCCCCC;
+    border-radius: 25px;
+}
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.calendar {
+  
+
+    text-align: left;
+    text-indent: 8px;
+    font-size: medium;
+    width: 215px;
+    height: 30px;
+    border: 2px solid transparent;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #333333;
+    color: #CCCCCC;
+
+
+}
+
+
+.calendar:focus {
+    outline: none;
+    border-color: transparent;
+    /* box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.25); */
+}
+
+.calendar option {
+    
+    
+    background-color: #141414;
+    color: #CCCCCC;
+    border-radius: 25px;
+}
+
+.file-upload-container {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    position: relative;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+.file-upload-button {
+    display: inline-block;
+    padding: 8px 50px;
+    margin-top: 50px;
+    background-color: transparent;
+    color: #10CDE6;
+    border: 1px solid #10CDE6;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.4s ease, transform 0.2s ease;
+}
+
+.file-upload-button:hover {
+    background-color: #10CDE6;
+    border: 1px solid #10CDE6;
+    color: #050505;
+    transform: scale(1.03);   
+}
+
+.file-upload-input:valid + .file-upload-button {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #141414;
+}
+
+.file-upload-input:valid + .file-upload-button::after {
+    content: " ✓";
+}
+
+
+/* .process-button:active {
+    transform: scale(0.95);  
+    margin-top: 20px;
+} */
+

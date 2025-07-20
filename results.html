@@ -3,7 +3,7 @@
   <head>
         <!--Links referencing Google Fonts -->
     
-    <link rel="stylesheet" href="{{ url_for( 'static', filename='style.css') }}">
+    <link rel="stylesheet" href="styles/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Varela+Round&display=swap" rel="stylesheet">
@@ -13,40 +13,24 @@
     <title>Results</title>
   </head>
 
-  <form action="{{ url_for('main.logout') }}" method="GET">
+  <script async src="scripts/main.js"></script>
+  <form action="index.html" method="get">
     <button type="submit" class="logout-button">Log Out</button>
   </form>
 
-<body class="results-body">
-
-    <form action="{{ url_for('main.results') }}" method="GET">
-        
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <p class="flash-message {{ category }}">{{ message }}</p>
-                {% endfor %}
-    
-            {% endif %}
-    
-        {% endwith %}
-
-
+  <body class="sign-in-body">
+      
+    <form>
       <h1 id="title" class="h1-results">Data Load Completed</h1>
       <h2 class="h2-results">Batch size</h2>
-      <h1 id="title" class="h1-results">{{batch_size}}</h1>
+      <h1 id="title" class="h1-results">100</h1>
       <h2 class="h2-results">Loaded Files</h2>
-      <h1 id="title" class="h1-results">{{success}}</h1>
+      <h1 id="title" class="h1-results">95</h1>
       <h2 class="h2-results">Not Loaded Files</h2>
-      <h1 id="title" class="h1-results">{{fails}}</h1>
+      <h1 id="title" class="h1-results">5</h1>
 
-    <a href="{{ url_for('main.select_athlete') }}">
-        <button type="button" class="return-button">Return</button>
-    </a>    
-
-
+      
+    <button type="button" class="return-button">Return</button>
+    
 
     </form>
-
-</body>
-</html>

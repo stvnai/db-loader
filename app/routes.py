@@ -13,13 +13,16 @@ logger=set_module_logger(__name__)
 
 main= Blueprint("main", __name__)
 
+
+@main.route('/')
+def index():
+    return redirect(url_for('main.login'))
+
 ### LOGIN ROUTE ###
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
 
-    # if request.method == "GET":
-    #     get_flashed_messages()
 
 
     login_form= LoginForm()
@@ -85,9 +88,10 @@ def select_athlete():
             flash("Batch processed. All files loaded sucessfully.", "success")
             return redirect(url_for("main.results"))
         
-        elif check and failures > 1:
+        elif check and failures > 0:
             flash("Batch processed. Some files were not uploaded.", "warning")
             return redirect(url_for("main.results"))
+        
         
         elif not check:
             logger.error("Error proccesing batch.")
@@ -101,12 +105,9 @@ def select_athlete():
 
 ### REGISTER ATHLETE ###
 
-@main.route("/", methods=["GET", "POST"])
+@main.route("/new-athlete", methods=["GET","POST"])
 @login_required
-def index():
-
-    # if request.method == "GET":
-    #     get_flashed_messages()
+def new_athlete():
 
     form= InputForm()
 
@@ -116,9 +117,8 @@ def index():
         name= form.name.data.lower()
         last_name= form.last_name.data.lower()
         dob= form.date_of_birth.data
-        gender= form.gender.data
+        gender= form.gender.data.lower()
     
-        
 
         athlete_df= pd.DataFrame([
             dict(
@@ -136,14 +136,20 @@ def index():
         
         elif not check_insert:
             flash("Trying to register an already existing athlete.", "danger")
-            return redirect(url_for("main.index"))
+            return redirect(url_for("register_athlete.index"))
         
         else:
             flash("Error trying to register athlete.", "danger")
-            return redirect(url_for("main.index"))
+            return redirect(url_for("register_athlete.index"))
 
+    else:
+        logger.warning("Form did not validate.")
+        logger.debug(form.errors)
+        for field, errors in form.errors.items():
+            for error in errors:
+                logger.error(f"Validation error in '{field}': {error}")
         
-    return render_template("index.html", form= form)
+    return render_template("register-athlete.html", form= form)
 
 
 ### RESULTS ###

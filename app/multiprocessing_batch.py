@@ -46,6 +46,7 @@ def process_batch(filepaths:list, athlete_df)-> None:
                 failures= len(results) - successes
         
             logger.info("Batch processed sucessfully.")
+            logger.info(f"success= {successes}, fails= {failures}")
             return True, successes, failures
     
     except Exception as e:

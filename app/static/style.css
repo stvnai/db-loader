@@ -1,443 +1,821 @@
-                        
-                        
-                        
-                        /* *******##### BODY AND HEADERS SETTINGS #####******* */
-
-/* ***##### BODY #####*** */
-
-body {
-    font-family:"Plus Jakarta Sans",  'Noto Sans', 'Arial', sans-serif;
-    background-color: #141414;
-    padding: 10px;
-    margin-top: 0%;
-    margin-bottom: 0%;
-}
-
-
-/* ***##### HEADERS #####*** */
-
-h1{
-    text-align: center;
-    font-family: "Plus Jakarta Sans", "Noto Sans";
+html {
+    color: #a4a8bb;
+    background: radial-gradient(circle,rgba(16, 18, 29, 50) 25%, rgba(0, 0, 0, 50) 100%); 
     
-    color: #CCCCCC;
-    font-size: 35px;
-    margin-top: 80px;
-    margin-bottom: 20px;
+    font-family: "DM Sans", sans-serif !important; 
+    font-size: medium;
+
     
 }
 
-h2{ margin-top: 50px;
-    margin-bottom: 20px;
+
+            /* ########## ******* *** LOGIN PAGE *** ******* ##########  */
+
+
+.sign-in-body {
+    height: 700px !important;
+    width: 350px !important;
+    margin: 80px auto;
+    padding: 20px 20px 20px 20px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 20);
+    box-shadow: 2px 2px 10px #10141ab2;
+}
+
+
+.h1-data-loader {
+    margin: 20px 10px !important;
+    color: #a1a8b4;
     text-align: center;
-    color: #198FB3;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif !important;
+    font-size: 45px !important;
+    
 }
 
-
-
-                        /* *******##### INPUT FIELDS #####******* */
-
-/* ***##### INPUT LOGIN DATA #####*** */
-
-.input-login {
-    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
-    text-align: left;
-    text-indent: 8px;
-    font-size: medium;
-    width: 215px;
-    height: 30px;
-    border: 2px solid transparent;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 15px;
-    background-color: #333333;
-    color: #CCCCCC;
-
+.h2-sign-in {
+    margin: 0px 30px 30px 30px;
+    color: #1b5f8d;
+    text-align: center;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 15px;
+    
 }
 
-.input-login:focus {
-    border-color: transparent;
-    outline: none;
-}
+.h3-login-credentials {
+    margin: 15px 50px ;
+    color: #a1a8b4;
+    text-indent: 10px;
 
-.input-login::placeholder {
-    color: #999999;
-    opacity: 0.5;
-    font-style: normal;
-}
-
-
-/* ***##### INPUT SIGN UP DATA #####*** */
-                    
-.input-signup {
-    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
-    text-align: left;
-    text-indent: 8px;
-    font-size: medium;
-    width: 215px;
-    height: 30px;
-    border: 2px solid transparent;
-    margin-bottom: 5px;
-    border-radius: 15px;
-    background-color: #333333;
-    color: #CCCCCC;
-
-}
-
-.input-signup:focus {
-    border-color: transparent;
-    outline: none;
-}
-
-.input-signup::placeholder {
-    color: #999999;
-    opacity: 0.5;
-    font-style: normal;
-}
-
-
-/* ***##### INPUT CALCULATE DATA #####*** */
-
-.general-form {margin-top: 20px;
-    color: #CCCCCC;
-    max-width: fit-content;
-    margin: auto; 
-}
-
-.account-actions {margin-top: 20px;
-    font-size: 13px;
-    font-family: "Plus Jakarta Sans", "Noto Sans" sans-serif;
-    color: #CCCCCC;
-    max-width: fit-content;
-    margin: auto; 
-}
-
-label {
-    display:block;
-    margin-top: 3px;
-    margin-bottom: 5px;
+    font-family: "DM Sans", sans-serif;
     font-weight: bold;
     font-size: 15px;
 }
 
-.inputs_db {
-    text-align: left;
-    text-indent: 8px;
-    font-size: medium;
-    width: 215px;
-    height: 30px;
-    border: 2px solid transparent;
-    margin-bottom: 5px;
-    border-radius: 15px;
-    background-color: #333333;
-    color: #CCCCCC;
+.input-login {
+    display: block;
+    height: 40px;
+    width: 245px;
+    margin: 10px auto;
+    padding: auto;
+    text-indent: 10px;
+    
+    background-color: #182132;
+    color: #a1a8b4;
 
+    border: 0px solid transparent;
+    border-radius: 10px;
+    
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
 }
 
-.inputs_sb:focus {
-  border-color: transparent;
-  outline: none;
+::placeholder {
+    color: #a1a8b4;
+    opacity: .35;
 }
 
-.input_db::placeholder {
-    color: #999999;
-    opacity: 0.5;
-    font-style: normal;
-}
-
-
-/* ***##### INPUT UNITS DATA #####*** */
-
-.unit-labels {
-    padding-bottom: 4%;
-    display: flex;
-    text-align: center;
-    font-size: 12px;
-    color: #CCCCCC;   
-}
-
-.unit-toggle {
-    display: flex;
-    flex-direction:row-reverse;
-    align-items: baseline;
-    gap: 10px;
-}
-
-
-
-                    /* *******##### OUTPUT FIELDS #####******* */
-
-/* ***##### RESULTS PAGE #####*** */
-
-.success-value {
-    margin-top: 5px;
-    text-align: center;
-    align-items: center;
-    font-size: 20px;
-    color: #198FB3;
-}
-.failed-value {
-    margin-top: 5px;
-    text-align: center;
-    align-items: center;
-    font-size: 20px;
-    color: #198FB3;
-}
-
-
-
-                    /* *******##### BUTTONS #####******* */
-
-/* ***##### REGISTER BUTTON #####*** */
-
-.signup-button {
-display: block;
-margin: auto;
-margin-top: 25px;
-margin-bottom: 20px;
-background-color: #141414;
-color: #10CDE6;
-padding: 8px 73px;
-border: 1px solid #10CDE6;
-border-radius: 20px;
-cursor: pointer;
-font-size: 16px;
-transition: background-color 0.2s ease-out, transform 0.2s ease-out;
-font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
-font-weight: bold;
-
-}
-
-.signup-button:hover {
-background-color: #10CDE6;
-border: 1px solid #10CDE6;
-color: #050505;
-transform: scale(1.03);
-
-}
-
-.signup-button:active {
-transform: scale(0.95);
-
-}
-
-
-/* ### LOGIN BUTTON ### */
+.input-login:focus { 
+        outline: none !important;
+        border: 0px solid #1b5f8d;
+        box-shadow: 0 0 8px #237bb6;
+    }
 
 .login-button {
-    display: block;
-    margin: auto;
-    margin-top: 25px;
-    margin-bottom: 20px;
-    background-color: #141414;
-    color: #10CDE6;
-    padding: 8px 73px;
-    border: 1px solid #10CDE6;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
-    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
-    font-weight: bold;
+    height: 40px;
+    width: 250px;
+    margin: 50px auto;
+    border: 0px solid transparent;
+    border-radius: 10px;
     
+    background-color: #113c58;
+    color: #a4a8bb;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: small;
+    font-weight: bold;
+    display: block;
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
 }
 
-.login-button:hover {
-    background-color: #10CDE6;
-    border: 1px solid #10CDE6;
-    color: #050505;
-    transform: scale(1.03);
-    
-    
+.login-button:hover{
+    background-color: #1b5f8d;
+    font-size: small;
+    scale: 1.01;
+    transition: 0.2s ease-in-out;
 }
 
 .login-button:active {
-    transform: scale(0.95);
-    
+transform: scale(0.98);
+transition: 0.2s ease-out
+
 }
-
-
-/* ### LOGOUT BUTTON ### */
 
 .logout-button {
-    position: fixed;
-    display: block;
-    align-items: left;
-    margin-top: 20px;
-    margin-bottom: 100px;
-    background-color: #141414;
-    color: #10CDE6;
-    padding: 5px 20px;
-    border: 1px solid #10CDE6;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: background-color 0.4s ease, transform 0.2s ease;
-    font-family: Noto Sans;
-    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 40px;
+    width: 100px;
+    border: 0px solid transparent;
+    border-radius: 10px;
     
+    background-color: #113c58;
+    color: #a4a8bb;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: small;
+    font-weight: bold;
+    display: block;
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
 }
 
-.logout-button:hover {
-    background-color: #141414;
-    border: 1px solid #E6474C;
-    color: #E6474C;
-    transform: scale(1.03);  
+.logout-button:hover{
+    background-color: #1b5f8d;
+    font-size: small;
+    scale: 1.01;
+    transition: 0.2s ease-in-out;
 }
 
 .logout-button:active {
-    transform: scale(0.95);
+transform: scale(0.98);
+transition: 0.2s ease-out
+
 }
 
 
-/* ***##### CALCULATE BUTTON #####*** */
-                                    
-.process-button {
-    display: block;
-    margin: auto;
-    margin-top: 25px;
-    background-color: #141414;
-    color: #10CDE6;
-    padding: 8px 50px;
-    border: 1.5px solid #10CDE6;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
-    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
-    font-weight: bold;  
+            /* ########## ******* *** SELECT ATHLETE PAGE *** ******* ##########  */
+
+
+.athlete-body {
+    height: 700px;
+    width: 350px;
+    margin: 80px auto;
+    padding: 20px 20px 20px 20px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 20);
+    box-shadow: 2px 2px 10px #10141ab2;
 }
 
-.process-button:hover {
-    background-color: #10CDE6;
-    border: 1px solid #10CDE6;
-    color: #050505;
-    transform: scale(1.03);   
+.h1-select-athlete {
+    margin: 20px 10px;
+    color: #a1a8b4;
+    text-align: center;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 45px;
+    
 }
-
-.process-button:active {
-    transform: scale(0.95);  
-}
-
-
-/* ***##### RESET BUTTON #####*** */
-
-.reset-button {
-    display: block;
-    margin: auto;
-    align-items: center;
-    margin-top: 50px;
-    background-color: #141414;
-    color: #10CDE6;
-    padding: 8px 73px;
-    border: 1.5px solid #10CDE6;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.4s ease, transform 0.2s ease;
-    font-family: Noto Sans;
-    font-weight: bold;
+.h2-select-athlete {
+    margin: 0px 30px 30px 30px;
+    color: #1b5f8d;
+    text-align: center;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 15px;
     
 }
 
-.reset-button:hover {
-    background-color: #10CDE6;
-    border: 2px solid #10CDE6;
-    color: #050505;
-    transform: scale(1.05);  
+/* ##### ** *** DROP DOWN LIST *** ** #####  */
+
+/* *** MAIN CONTAINER *** */
+
+.custom-select {
+    width: 250px;
+    position: block;
+    background-color: transparent;
+    border-radius: 10px;
+    margin: 0 auto;
+    transition: 0.2s ease-in;
 }
 
+/* *** DROPDOWN HEADER *** */
+    
+.select-header {
 
-/* ***##### SIGNUP/SIGNIN LINKS #####*** */
-
-.sign-link {
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-    font-size: 13px;
-    font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
-}
-
-.sign-link a {position: inherit;
-    color: #198FB3;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.sign-link a:visited {
-    color: #198FB3;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.sign-link a:hover {
-    color: #10CDE6;
-    text-decoration: underline;
-}
-
-
-/* ***##### SLIDERS #####*** */
-
-.toggle-group {
-    display: flex;
-    flex-direction:row-reverse;
-    align-items: center;
-    gap: 10px;
-    margin:auto;
-}
-
-.switch {
-    position: relative;
-    display: block;
-    width: 35px;
-    height: 20px;
-}
-
-.switch input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    pointer-events: none;
-}
-
-.slider {
-    position: absolute;
+    padding: 10px 10px 10px 10px;
     cursor: pointer;
-    background-color: #198FB3;
-    border-radius: 50px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: 0.4s;
-}
-
-.slider::before {
-    content: "";
-    position: absolute;
-    height: 15px;
-    width: 15px;
-    left: 2px;
-    bottom: 2.5px;
-    background-color: #CCCCCC;
-    transition: 0.3s;
-    border-radius: 50%;
-}
-
-input:checked + .slider {
-    background-color: #10CDE6;
-}
-
-input:checked + .slider::before {
-    transform: translateX(15px);
+    background-color: #182132;
+    border: 0px solid transparent;
+    border-radius: 8px;
+    user-select: none; 
+    font-family: "DM Sans", sans-serif;
+    text-align: left;
+    font-size: 15px;
+    color: #a1a8b4;
+    border: 0px solid transparent;
+    transition: 0.2s ease-in;
+    
 }
 
 
+.select-header.open {
+    color: #a1a8b459;
+    border-radius:  8px 8px 0 0;
+    border: 0px solid transparent;
+    transition: 0.2s ease-out;
 
-                    /* *****### FLASH MESSAGES AND ALERTS ###***** */
+}
+
+.select-header.closed-selected {
+    color: #a1a8b4;
+
+    
+    text-align: left;
+    border-radius: 8px;
+    transition: 0.2s ease-in;
+    
+}
+
+/* *** OPTIONS CONTAINER *** */
+
+.select-options {
+    
+    max-height: 175px;
+    
+    max-width: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    margin-right: -6px;
+    margin-top: 5px;
+    display: block;
+    position: block;
+    padding: 0px, 10px;
+
+    text-indent: 10px;
+    
+    background-color: #182132;
+    color: #a1a8b4;
+    
+    font-family: "DM Sans", sans-serif;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.2s ease-in;
+
+}
+
+/* *** SCROLL BAR *** */
+
+.custom-select.open .select-options {
+    transform: scaleY(1);
+    transition: 0.2s ease-out;
+
+}
+
+.select-options::-webkit-scrollbar {
+    width: 3px;
+}
+
+.select-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.select-options::-webkit-scrollbar-thumb {
+    background-color: #113c58;
+    border-radius: 4px;
+}
+
+/* *** INDIVIDUAL OPTIONS *** */
+
+.option {
+    max-height: 50px;
+    max-width: 250px;
+    /* margin-bottom: 10px; */
+    padding: 8px 10px 8px 10px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    
+    border-bottom: 1px solid transparent;
+    text-align: left;
+    border-radius: 0 0 0px 0px;
+    scale: 1.0;
+    transition: 0.2s ease-out;
+
+}
+
+.option:hover {
+    background-color: #1b5f8d;
+    border-bottom: 1px solid #113c58;
+    border-radius: 0 0 0px 0px;
+    scale: 1.02;
+    transition: 0.2s ease-in;
+    cursor: pointer;
+
+}
+
+/* *** SELECT FILES BUTTON *** */
+
+.select-files-button {
+    height: 40px;
+    width: 250px;
+    margin-top: 50px;
+    margin: 20px auto;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    
+    background-color: #113c58;
+    color: #a4a8bb;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: small;
+    font-weight: bold;
+    display: block;
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.select-files-button:hover{
+    background-color: #1b5f8d;
+    font-size: small;
+    scale: 1.01;
+    transition: 0.2s ease-in-out;
+}
+
+.file-upload-input:valid + .select-files-button {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #141414;
+}
+
+.file-upload-input:valid + .select-files-button::after {
+    content: " ✓";
+}
+
+
+/* *** LOAD DATA BUTTON *** */
+
+.load_data-button {
+    height: 40px;
+    width: 250px;
+    margin: 20px auto;
+    margin-bottom: 156px;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    
+    background-color: #113c58;
+    color: #a4a8bb;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: small;
+    font-weight: bold;
+    display: block;
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.load_data-button:hover{
+    background-color: #1b5f8d;
+    font-size: small;
+    scale: 1.01;
+    transition: 0.2s ease-in-out;
+}
+
+.load_data-button:active {
+transform: scale(0.98);
+transition: 0.2s ease-out
+
+}
+
+/* *** LINK REGISTER ATHLETE *** */
+
+.p-not-listed-athlete {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+}
+
+.link-register-athlete {
+    display: block;
+    color: #1e959b;
+    margin-top: 2px;
+    text-align: center;
+    text-decoration: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    scale: 1.0;
+    transition: 0.2s ease-out;
+
+}
+
+
+.link-register-athlete:hover {
+    display: block;
+    color: #237bb6;
+    margin-top: 5px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    scale: 1.02;
+    transition: 0.2s ease-in;
+    ;
+
+}
+
+.link-register-athlete:visited {
+
+    color: #1b5f8d
+}
+.link-register-athlete:visited:hover {
+
+    color: #237bb6
+}
+
+            /* ########## ******* *** REGISTER ATHLETE PAGE *** ******* ##########  */
+
+.register-athlete-body {
+    height: 700px;
+    width: 350px;
+    margin: 80px auto;
+    padding: 20px 20px 20px 20px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 20);
+    box-shadow: 2px 2px 10px #10141ab2;
+}
+
+.h1-register-athlete {
+    margin: 20px 10px;
+    color: #a1a8b4;
+    text-align: center;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 45px;
+    
+}
+
+.h2-register-athlete {
+    margin: 0px 30px 30px 30px;
+    color: #1b5f8d;
+    text-align: center;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 15px;
+    
+}
+
+.h3-register-credentials {
+    margin: 10px 50px ;
+    color: #a1a8b4;
+    text-indent: 10px;
+
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* *** INPUT REGISTER ATHLETE */
+
+.input-register-athlete {
+    display: block;
+    height: 40px;
+    width: 245px;
+    margin: 10px auto;
+    padding: auto;
+    text-indent: 10px;
+    
+    background-color: #182132;
+    color: #a1a8b4;
+
+    border: 0px solid transparent;
+    border-radius: 10px;
+    
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+}
+
+::placeholder {
+    color: #a1a8b4;
+    opacity: .35;
+}
+
+.input-register-athlete:focus { 
+        outline: none !important;
+        border: 0px solid #1b5f8d;
+        box-shadow: 0 0 8px #237bb6;
+    }
+
+
+    
+    /* *** CALENDAR FIELD *** */
+    
+    
+    .dob-calendar::-webkit-calendar-picker-indicator {
+       display: none !important;
+}
+
+
+
+.dob-calendar {
+    display: block;
+    margin: 15px auto;
+    /* margin-bottom: 20px; */
+    color:#a1a8b4;
+    height: 40px;
+    width: 250px;
+    font-family: "DM Sans";
+    font-size: 15px;
+    background-color: #182132;
+    outline: none !important;
+    border: 0px solid transparent;
+    border-radius: 10px;
+}
+
+/* *** GENDER CONTAINER *** */
+
+.custom-gender-select {
+    width: 250px;
+    position: block;
+    background-color: transparent;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 15px;
+    transition: 0.2s ease-in;
+}
+
+/* *** DROPDOWN HEADER *** */
+    
+.select-gender-header {
+
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+    background-color: #182132;
+    border: 0px solid transparent;
+    border-radius: 8px;
+    user-select: none; 
+    font-family: "DM Sans", sans-serif;
+    text-align: left;
+    font-size: 15px;
+    color: #a1a8b4;
+    border: 0px solid transparent;
+    transition: 0.2s ease-in;
+    
+}
+
+
+.select-gender-header.open {
+    color: #a1a8b459;
+    border-radius:  8px 8px 0 0;
+    border: 0px solid transparent;
+    transition: 0.2s ease-out;
+
+}
+
+.select-gender-header.closed-selected {
+    color: #a1a8b4;
+
+    
+    text-align: left;
+    border-radius: 8px;
+    transition: 0.2s ease-in;
+    
+}
+
+/* *** OPTIONS CONTAINER *** */
+
+.select-gender-options {
+    
+    max-height: 175px;
+    
+    max-width: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    margin-right: -6px;
+    margin-top: 5px;
+    display: block;
+    position: block;
+    padding: 0px, 10px;
+
+    text-indent: 10px;
+    
+    background-color: #182132;
+    color: #a1a8b4;
+    
+    font-family: "DM Sans", sans-serif;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.2s ease-in;
+
+}
+
+/* *** SCROLL BAR *** */
+
+.custom-gender-select.open .select-gender-options {
+    transform: scaleY(1);
+    transition: 0.2s ease-out;
+
+}
+
+.select-gender-options::-webkit-scrollbar {
+    width: 3px;
+}
+
+.select-gender-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.select-gender-options::-webkit-scrollbar-thumb {
+    background-color: #113c58;
+    border-radius: 4px;
+}
+
+/* *** INDIVIDUAL OPTIONS *** */
+
+.gender-option {
+    max-height: 50px;
+    max-width: 250px;
+    /* margin-bottom: 10px; */
+    padding: 8px 10px 8px 10px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    
+    border-bottom: 1px solid transparent;
+    text-align: left;
+    border-radius: 0 0 0px 0px;
+    scale: 1.0;
+    transition: 0.2s ease-out;
+
+}
+
+.gender-option:hover {
+    background-color: #1b5f8d;
+    border-bottom: 1px solid #113c58;
+    border-radius: 0 0 0px 0px;
+    scale: 1.02;
+    transition: 0.2s ease-in;
+    cursor: pointer;
+
+}
+
+
+/* *** REGISTER BUTTON *** */
+
+.register-athlete-button {
+    height: 40px;
+    width: 250px;
+    margin: 20px auto;
+    margin-top: 50px auto;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    
+    background-color: #113c58;
+    color: #a4a8bb;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: small;
+    font-weight: bold;
+    display: block;
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.register-athlete-button:hover{
+    background-color: #1b5f8d;
+    font-size: small;
+    scale: 1.01;
+    transition: 0.2s ease-in-out;
+}
+
+.register-athlete-button:active {
+transform: scale(0.98);
+transition: 0.2s ease-out
+
+}
+
+/* *** LINK REGISTERED ATHLETE *** */
+
+.p-athlete-registered {
+    margin-top: 30px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+}
+
+.link-athlete-registered {
+    display: block;
+    color: #1e959b;
+    margin-top: 2px;
+    text-align: center;
+    text-decoration: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    scale: 1.0;
+    transition: 0.2s ease-out;
+
+}
+
+.link-athlete-registered:hover {
+    display: block;
+    color: #237bb6;
+    margin-top: 5px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    scale: 1.02;
+    transition: 0.2s ease-in;
+    ;
+
+}
+
+.link-athlete-registered:visited {
+
+    color: #1b5f8d
+}
+.link-athlete-registered:visited:hover {
+
+    color: #237bb6
+}
+
+            /* ########## ******* *** RESULTS PAGE *** ******* ##########  */
+
+.results-body {
+    height: 700px;
+    width: 350px;
+    margin: 80px auto;
+    padding: 20px 20px 20px 20px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 20);
+    box-shadow: 2px 2px 10px #10141ab2;
+}
+
+.h1-results {
+    margin: 20px 10px;
+    color: #a1a8b4;
+    text-align: center;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 45px;
+    
+}
+
+.h2-results {
+    margin: 0px 30px 30px 30px;
+    color: #1b5f8d;
+    text-align: center;
+    
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 20px;
+    
+}
+
+/* *** RETURN BUTTON *** */
+
+a {
+    text-decoration: none !important; 
+    color: inherit; 
+}
+
+
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.return-button {
+    height: 40px;
+    width: 250px;
+    margin: 50px auto;
+    margin-top: 50px auto;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    
+    background-color: #113c58;
+    color: #a4a8bb;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: small;
+    font-weight: bold;
+    display: block;
+    scale: 1.0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease-in-out;
+}
+
+.return-button:hover{
+    background-color: #1b5f8d;
+    font-size: small;
+    scale: 1.01;
+    transition: 0.2s ease-in-out;
+}
+
+.return-button:active {
+transform: scale(0.98);
+transition: 0.2s ease-out
+
+}
+
 
 /* ### FLASH MESSAGES GENERAL SETTINGS ### */
 
@@ -457,152 +835,20 @@ input:checked + .slider::before {
                     
 .flash-message.success {
     
-    color: #4caf50;
-    ;
+color: #4caf50;
+    
 }
 
 .flash-message.warning {
     
-    color: #FFAE33;
-    ;
+color: #FFAE33;
+    
 }
-
 
 /* ### DANGER FLASH MESSAGES ### */
 
 .flash-message.danger {
     
-    color: #E6474C;
-    ;
-}
-
-
-
-                    /* *****### ANOTHER GENERAL SETTINGS ###***** */
-
-
-/* ***##### DEVICES #####*** */
-
-@media (max-width: 580px) {
-    .toggle-group {
-        vertical-align: center;
-        flex-direction: row;
-        align-items: flex-start;
-    }
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+color: #E6474C;
     
-    margin: 0;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-.file-upload-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-/* Ocultar el input file original pero mantenerlo funcional */
-.file-upload-wrapper input[type="file"] {
-    position: absolute;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    z-index: 2;
-}
-
-/* SELECT LISTS */
-
-.select-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.select-dark {
-    display: block;
-    width: 215px;
-    height: 30px;
-    border: 2px solid transparent;
-    margin-bottom: 5px;
-    border-radius: 15px;
-    font-size: 14px;
-    border: 1px solid #198FB3;
-    border-radius: 8px;
-    background-color: #141414;
-    color: #CCCCCC;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.select-dark:hover {
-    
-    background-color: #10CDE6;
-    color: #141414;
-}
-
-.select-dark:focus {
-    outline: none;
-    border-color: #63b3ed;
-    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.25);
-}
-
-.select-dark option {
-    background-color: #141414;
-    color: #CCCCCC;
-}
-
-.file-upload-container {
-    text-align: center;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 400px;
-    position: relative;
-}
-
-.file-upload-input {
-    display: none;
-}
-
-.file-upload-button {
-    display: inline-block;
-    padding: 8px 50px;
-    margin-top: 50px;
-    background-color: transparent;
-    color: #10CDE6;
-    border: 1px solid #10CDE6;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.4s ease, transform 0.2s ease;
-}
-
-.file-upload-button:hover {
-    background-color: #10CDE6;
-    border: 1px solid #10CDE6;
-    color: #050505;
-    transform: scale(1.03);   
-}
-
-
-
-.process-button:active {
-    transform: scale(0.95);  
-}
-
-.file-upload-input:valid + .file-upload-button {
-    background-color: #4caf50;
-    border-color: #4caf50;
-    color: #141414;
-}
-
-.file-upload-input:valid + .file-upload-button::after {
-    content: " ✓";
 }
