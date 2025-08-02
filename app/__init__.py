@@ -6,10 +6,6 @@ from flask_login import LoginManager, current_user
 from.db.db_queries import get_user_by_id
 from .models import User
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 
 token= os.environ.get("SECRET_KEY")
 csrf = CSRFProtect()
