@@ -6,8 +6,9 @@ from app.forms import InputForm, LoginForm, UploadFiles
 from werkzeug.utils import secure_filename
 from app.set_logging import set_module_logger
 from app.multiprocessing_batch import process_batch
-from app.decorators.auth_decorators import login_required
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, get_flashed_messages
+from .models import User
+from flask_login import login_user, logout_user, login_required
 
 logger=set_module_logger(__name__)
 
@@ -23,8 +24,6 @@ def index():
 @main.route("/login", methods=["GET", "POST"])
 def login():
 
-
-
     login_form= LoginForm()
 
     if login_form.validate_on_submit():
@@ -33,8 +32,10 @@ def login():
         password= login_form.password.data
 
         user_id= auth_user(username, password)
-        if user_id:
-            session["user_id"] = user_id
+
+        if user_id is not None:
+            user= User(user_id, username)
+            login_user(user)
             return redirect(url_for("main.select_athlete"))
         
         
@@ -177,7 +178,7 @@ def logout():
     
     """Close session and redirect to /login"""
 
-    session.clear()
+    logout_user()
     return redirect(url_for("main.login"))
 
 

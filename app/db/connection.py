@@ -1,6 +1,10 @@
 import os
 from sqlalchemy import create_engine
 from urllib.parse import quote_plus
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 
 def get_sqlachemy_engine():

@@ -13,62 +13,54 @@ html {
 
 
 .sign-in-body {
-    height: 700px !important;
-    width: 350px !important;
-    margin: 80px auto;
-    padding: 20px 20px 20px 20px;
-    border-radius: 15px;
+    height: 43.75rem !important;
+    width: 21.875rem !important;
+    margin: 5rem auto;
+    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    border-radius: 0.938rem;
     background-color: rgba(0, 0, 0, 20);
-    box-shadow: 2px 2px 10px #10141ab2;
+    box-shadow: 0.125rem 0.125rem 0.625rem #10141ab2;
 }
 
 
 .h1-data-loader {
-    margin: 20px 10px !important;
+    margin: 1.25rem 0.625rem !important;
     color: #a1a8b4;
     text-align: center;
-    
     font-family: "DM Sans", "Noto Sans", sans-serif !important;
-    font-size: 45px !important;
-    
+    font-size: 45px !important;  
 }
 
 .h2-sign-in {
-    margin: 0px 30px 30px 30px;
+    margin: 0px 1.875rem 1.875rem 1.875rem;
     color: #1b5f8d;
     text-align: center;
-    
     font-family: "DM Sans", "Noto Sans", sans-serif;
-    font-size: 15px;
-    
+    font-size: 0.938rem; 
 }
 
 .h3-login-credentials {
-    margin: 15px 50px ;
+    margin: 0.938rem 3.125rem ;
     color: #a1a8b4;
-    text-indent: 10px;
-
+    text-indent: 0.625rem;
     font-family: "DM Sans", sans-serif;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 0.938rem;
 }
 
 .input-login {
     display: block;
-    height: 40px;
-    width: 245px;
-    margin: 10px auto;
+    height: 2.5rem;
+    width: 15.313rem;
+    margin: 0.625rem auto;
     padding: auto;
-    text-indent: 10px;
-    
-    background-color: #182132;
+    text-indent: 0.625rem;
+    background-color: #1821327a;
     color: #a1a8b4;
-
     border: 0px solid transparent;
-    border-radius: 10px;
-    
+    border-radius: 0.625rem;
     font-family: "DM Sans", sans-serif;
-    font-size: 15px;
+    font-size: 0.938rem;
 }
 
 ::placeholder {
@@ -83,17 +75,15 @@ html {
     }
 
 .login-button {
-    height: 40px;
-    width: 250px;
-    margin: 50px auto;
-    border: 0px solid transparent;
-    border-radius: 10px;
-    
-    background-color: #113c58;
+    height: 2.5rem;
+    width: 8rem;
+    margin: 3.125rem auto;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem;
+    background-color: rgba(27, 95, 141, 0.1);
     color: #a4a8bb;
-
     font-family: "DM Sans", sans-serif;
-    font-size: small;
+    font-size: 0.875rem;
     font-weight: bold;
     display: block;
     scale: 1.0;
@@ -102,32 +92,29 @@ html {
 }
 
 .login-button:hover{
-    background-color: #1b5f8d;
-    font-size: small;
-    scale: 1.01;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
     transition: 0.2s ease-in-out;
 }
 
 .login-button:active {
-transform: scale(0.98);
-transition: 0.2s ease-out
-
+    transform: scale(0.98);
+    transition: 0.2s ease-out
 }
 
 .logout-button {
+    text-align: center;
     position: absolute;
-    top: 20px;
-    right: 20px;
-    height: 40px;
-    width: 100px;
-    border: 0px solid transparent;
-    border-radius: 10px;
-    
-    background-color: #113c58;
+    top: 1.25rem;
+    right: 1.25rem;
+    height: 2.5rem;
+    width: 8rem;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem; 
+    background-color: rgba(27, 95, 141, 0.1); 
     color: #a4a8bb;
-
     font-family: "DM Sans", sans-serif;
-    font-size: small;
+    font-size: 0.875rem;
     font-weight: bold;
     display: block;
     scale: 1.0;
@@ -136,16 +123,14 @@ transition: 0.2s ease-out
 }
 
 .logout-button:hover{
-    background-color: #1b5f8d;
-    font-size: small;
-    scale: 1.01;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
     transition: 0.2s ease-in-out;
 }
 
 .logout-button:active {
-transform: scale(0.98);
-transition: 0.2s ease-out
-
+    transform: scale(0.98);
+    transition: 0.2s ease-out
 }
 
 
@@ -153,32 +138,29 @@ transition: 0.2s ease-out
 
 
 .athlete-body {
-    height: 700px;
-    width: 350px;
-    margin: 80px auto;
-    padding: 20px 20px 20px 20px;
-    border-radius: 15px;
+    height: 43.75rem !important;
+    width: 21.875rem !important;
+    margin: 5rem auto;
+    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    border-radius: 0.938rem;
     background-color: rgba(0, 0, 0, 20);
-    box-shadow: 2px 2px 10px #10141ab2;
+    box-shadow: 0.125rem 0.125rem 0.625rem #10141ab2;
 }
 
 .h1-select-athlete {
-    margin: 20px 10px;
+    margin: 1.25rem 0.625rem !important;
     color: #a1a8b4;
     text-align: center;
-    
-    font-family: "DM Sans", "Noto Sans", sans-serif;
-    font-size: 45px;
-    
+    font-family: "DM Sans", "Noto Sans", sans-serif !important;
+    font-size: 45px !important;  
 }
+
 .h2-select-athlete {
-    margin: 0px 30px 30px 30px;
+    margin: 0px 1.875rem 1.875rem 1.875rem;
     color: #1b5f8d;
     text-align: center;
-    
     font-family: "DM Sans", "Noto Sans", sans-serif;
-    font-size: 15px;
-    
+    font-size: 0.938rem; 
 }
 
 /* ##### ** *** DROP DOWN LIST *** ** #####  */
@@ -186,7 +168,7 @@ transition: 0.2s ease-out
 /* *** MAIN CONTAINER *** */
 
 .custom-select {
-    width: 250px;
+    width: 15.313rem;
     position: block;
     background-color: transparent;
     border-radius: 10px;
@@ -200,7 +182,7 @@ transition: 0.2s ease-out
 
     padding: 10px 10px 10px 10px;
     cursor: pointer;
-    background-color: #182132;
+    background-color: #1821327a;
     border: 0px solid transparent;
     border-radius: 8px;
     user-select: none; 
@@ -215,7 +197,7 @@ transition: 0.2s ease-out
 
 
 .select-header.open {
-    color: #a1a8b459;
+    color: #1821327a;
     border-radius:  8px 8px 0 0;
     border: 0px solid transparent;
     transition: 0.2s ease-out;
@@ -236,9 +218,9 @@ transition: 0.2s ease-out
 
 .select-options {
     
-    max-height: 175px;
+    max-height: 10.938rem;
     
-    max-width: 250px;
+    width: 15.313rem;
     overflow-y: scroll;
     overflow-x: hidden;
 
@@ -250,7 +232,7 @@ transition: 0.2s ease-out
 
     text-indent: 10px;
     
-    background-color: #182132;
+    background-color: #1821327a;
     color: #a1a8b4;
     
     font-family: "DM Sans", sans-serif;
@@ -259,6 +241,9 @@ transition: 0.2s ease-out
     transition: 0.2s ease-in;
 
 }
+
+
+
 
 /* *** SCROLL BAR *** */
 
@@ -284,9 +269,9 @@ transition: 0.2s ease-out
 /* *** INDIVIDUAL OPTIONS *** */
 
 .option {
-    max-height: 50px;
-    max-width: 250px;
-    /* margin-bottom: 10px; */
+    max-height: 3.125rem;
+    max-width: 15.313rem;
+    
     padding: 8px 10px 8px 10px;
     font-family: "DM Sans", sans-serif;
     font-size: 14px;
@@ -300,30 +285,24 @@ transition: 0.2s ease-out
 }
 
 .option:hover {
-    background-color: #1b5f8d;
-    border-bottom: 1px solid #113c58;
-    border-radius: 0 0 0px 0px;
-    scale: 1.02;
-    transition: 0.2s ease-in;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
+    transition: 0.2s ease-in-out;
     cursor: pointer;
-
 }
 
 /* *** SELECT FILES BUTTON *** */
 
 .select-files-button {
-    height: 40px;
-    width: 250px;
-    margin-top: 50px;
-    margin: 20px auto;
-    border: 0px solid transparent;
-    border-radius: 10px;
-    
-    background-color: #113c58;
+    height: 2.5rem;
+    width: 8rem;
+    margin: 2rem auto;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem;
+    background-color: rgba(27, 95, 141, 0.1);
     color: #a4a8bb;
-
     font-family: "DM Sans", sans-serif;
-    font-size: small;
+    font-size: 0.875rem;
     font-weight: bold;
     display: block;
     scale: 1.0;
@@ -332,16 +311,15 @@ transition: 0.2s ease-out
 }
 
 .select-files-button:hover{
-    background-color: #1b5f8d;
-    font-size: small;
-    scale: 1.01;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
     transition: 0.2s ease-in-out;
 }
 
 .file-upload-input:valid + .select-files-button {
-    background-color: #4caf50;
-    border-color: #4caf50;
-    color: #141414;
+    background-color: rgba(27, 141, 42, 0.5);
+    border-color: rgba(27, 141, 42, 0.5);
+    color: #a4a8bb;
 }
 
 .file-upload-input:valid + .select-files-button::after {
@@ -352,18 +330,15 @@ transition: 0.2s ease-out
 /* *** LOAD DATA BUTTON *** */
 
 .load_data-button {
-    height: 40px;
-    width: 250px;
-    margin: 20px auto;
-    margin-bottom: 156px;
-    border: 0px solid transparent;
-    border-radius: 10px;
-    
-    background-color: #113c58;
+    height: 2.5rem;
+    width: 8rem;
+    margin: 2rem auto;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem;
+    background-color: rgba(27, 95, 141, 0.1);
     color: #a4a8bb;
-
     font-family: "DM Sans", sans-serif;
-    font-size: small;
+    font-size: 0.875rem;
     font-weight: bold;
     display: block;
     scale: 1.0;
@@ -372,9 +347,8 @@ transition: 0.2s ease-out
 }
 
 .load_data-button:hover{
-    background-color: #1b5f8d;
-    font-size: small;
-    scale: 1.01;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
     transition: 0.2s ease-in-out;
 }
 
@@ -391,6 +365,7 @@ transition: 0.2s ease-out
     margin-bottom: 5px;
     text-align: center;
     font-family: "DM Sans", sans-serif;
+    
     font-size: 14px;
 }
 
@@ -402,6 +377,7 @@ transition: 0.2s ease-out
     text-decoration: none;
     font-family: "DM Sans", sans-serif;
     font-size: 14px;
+    font-weight: bold;
     scale: 1.0;
     transition: 0.2s ease-out;
 
@@ -415,7 +391,6 @@ transition: 0.2s ease-out
     text-align: center;
     font-family: "DM Sans", sans-serif;
     font-size: 14px;
-    scale: 1.02;
     transition: 0.2s ease-in;
     ;
 
@@ -433,33 +408,29 @@ transition: 0.2s ease-out
             /* ########## ******* *** REGISTER ATHLETE PAGE *** ******* ##########  */
 
 .register-athlete-body {
-    height: 700px;
-    width: 350px;
-    margin: 80px auto;
-    padding: 20px 20px 20px 20px;
-    border-radius: 15px;
+    height: 43.75rem !important;
+    width: 21.875rem !important;
+    margin: 5rem auto;
+    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    border-radius: 0.938rem;
     background-color: rgba(0, 0, 0, 20);
-    box-shadow: 2px 2px 10px #10141ab2;
+    box-shadow: 0.125rem 0.125rem 0.625rem #10141ab2;
 }
 
 .h1-register-athlete {
-    margin: 20px 10px;
+    margin: 1.25rem 0.625rem !important;
     color: #a1a8b4;
     text-align: center;
-    
-    font-family: "DM Sans", "Noto Sans", sans-serif;
-    font-size: 45px;
-    
+    font-family: "DM Sans", "Noto Sans", sans-serif !important;
+    font-size: 45px !important;  
 }
 
 .h2-register-athlete {
-    margin: 0px 30px 30px 30px;
+    margin: 0px 1.875rem 1.875rem 1.875rem;
     color: #1b5f8d;
     text-align: center;
-    
     font-family: "DM Sans", "Noto Sans", sans-serif;
-    font-size: 15px;
-    
+    font-size: 0.938rem; 
 }
 
 .h3-register-credentials {
@@ -476,20 +447,17 @@ transition: 0.2s ease-out
 
 .input-register-athlete {
     display: block;
-    height: 40px;
-    width: 245px;
-    margin: 10px auto;
+    height: 2.5rem;
+    width: 15.313rem;
+    margin: 0.625rem auto;
     padding: auto;
-    text-indent: 10px;
-    
-    background-color: #182132;
+    text-indent: 0.625rem;
+    background-color: #1821327a;
     color: #a1a8b4;
-
     border: 0px solid transparent;
-    border-radius: 10px;
-    
+    border-radius: 0.625rem;
     font-family: "DM Sans", sans-serif;
-    font-size: 15px;
+    font-size: 0.938rem;
 }
 
 ::placeholder {
@@ -523,10 +491,11 @@ transition: 0.2s ease-out
     width: 250px;
     font-family: "DM Sans";
     font-size: 15px;
-    background-color: #182132;
+    background-color: #1821327a;
     outline: none !important;
     border: 0px solid transparent;
     border-radius: 10px;
+    cursor: text;
 }
 
 /* *** GENDER CONTAINER *** */
@@ -547,7 +516,7 @@ transition: 0.2s ease-out
 
     padding: 10px 10px 10px 10px;
     cursor: pointer;
-    background-color: #182132;
+    background-color: #1821327a;
     border: 0px solid transparent;
     border-radius: 8px;
     user-select: none; 
@@ -597,7 +566,7 @@ transition: 0.2s ease-out
 
     text-indent: 10px;
     
-    background-color: #182132;
+    background-color: #1821327a;
     color: #a1a8b4;
     
     font-family: "DM Sans", sans-serif;
@@ -647,31 +616,28 @@ transition: 0.2s ease-out
 }
 
 .gender-option:hover {
-    background-color: #1b5f8d;
-    border-bottom: 1px solid #113c58;
-    border-radius: 0 0 0px 0px;
-    scale: 1.02;
-    transition: 0.2s ease-in;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
+    transition: 0.2s ease-in-out;
     cursor: pointer;
-
 }
 
 
 /* *** REGISTER BUTTON *** */
 
 .register-athlete-button {
-    height: 40px;
-    width: 250px;
-    margin: 20px auto;
-    margin-top: 50px auto;
-    border: 0px solid transparent;
-    border-radius: 10px;
+    height: 2.5rem;
+    width: 8rem;
+    margin: 1.25rem auto;
+    margin-top: 3.25rem auto;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem;
     
-    background-color: #113c58;
+    background-color: rgba(27, 95, 141, 0.1); 
     color: #a4a8bb;
 
-    font-family: "DM Sans", sans-serif;
-    font-size: small;
+    font-family: "DM Sans", "Noto Sans" sans-serif;
+    font-size: 0.875rem;
     font-weight: bold;
     display: block;
     scale: 1.0;
@@ -680,9 +646,8 @@ transition: 0.2s ease-out
 }
 
 .register-athlete-button:hover{
-    background-color: #1b5f8d;
-    font-size: small;
-    scale: 1.01;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
     transition: 0.2s ease-in-out;
 }
 
@@ -709,6 +674,7 @@ transition: 0.2s ease-out
     text-align: center;
     text-decoration: none;
     font-family: "DM Sans", sans-serif;
+    font-weight: bold;
     font-size: 14px;
     scale: 1.0;
     transition: 0.2s ease-out;
@@ -721,8 +687,6 @@ transition: 0.2s ease-out
     margin-top: 5px;
     text-align: center;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
-    scale: 1.02;
     transition: 0.2s ease-in;
     ;
 
@@ -783,30 +747,28 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .return-button {
-    height: 40px;
-    width: 250px;
-    margin: 50px auto;
-    margin-top: 50px auto;
-    border: 0px solid transparent;
-    border-radius: 10px;
+    height: 2.5rem;
+    width: 8rem;
+    margin: 1.25rem auto;
+    margin-top: 3.25rem auto;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem;
     
-    background-color: #113c58;
+    background-color: rgba(27, 95, 141, 0.1); 
     color: #a4a8bb;
 
-    font-family: "DM Sans", sans-serif;
-    font-size: small;
+    font-family: "DM Sans", "Noto Sans" sans-serif;
+    font-size: 0.875rem;
     font-weight: bold;
     display: block;
     scale: 1.0;
     cursor: pointer;
-    text-decoration: none;
     transition: 0.2s ease-in-out;
 }
 
 .return-button:hover{
-    background-color: #1b5f8d;
-    font-size: small;
-    scale: 1.01;
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
     transition: 0.2s ease-in-out;
 }
 
@@ -815,6 +777,7 @@ transform: scale(0.98);
 transition: 0.2s ease-out
 
 }
+
 
 
 /* ### FLASH MESSAGES GENERAL SETTINGS ### */

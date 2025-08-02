@@ -17,36 +17,67 @@ except Exception as e:
     ENGINE= None
     logger.critical(f"Something goes wrong connecting with database: {e}.")
 
-def auth_user(username:str, password:str, engine: Engine = ENGINE) -> bool:
 
-    if engine is None:
-        logger.critical("No database engine available.")
-        return False
+def auth_user(username:str, password:str, engine:Engine=ENGINE):
+    if ENGINE is None:
+        print("No database engine available.")
+        return None
     
-    query= text("""
-                SELECT password_hashed 
-                FROM admin
-                WHERE username= :username
-                LIMIT 1    
-                """)
+    query= text(
+        """ SELECT user_id, password_hashed
+            FROM admin
+            WHERE username= :username
+            LIMIT 1
+        """
+    )
 
     values= {"username":username}
 
     try:
         with engine.connect() as conn:
             result= conn.execute(query, values)
-            stored_hash= result.scalar_one_or_none()
+            user_credentials= result.fetchone()
+            user_id= user_credentials[0]
+            stored_hash= user_credentials[1]
 
-            if stored_hash is not None:
-                return check_password_hash(stored_hash, password)
-            
+            if user_credentials:
+                if check_password_hash(stored_hash, password):
+                    return user_id
             else:
-                return False
-                  
+                return None
+
     except Exception as e:
-        logger.critical(f"Error authenticating user: {e}.")
-        return False
+        print(f"Error authenticating user: {e}")
+        return None
+
+
+def get_user_by_id(user_id, engine:Engine=ENGINE):
+
+    if engine is None:
+        print("No database engine available")
+        return None
     
+    query= text(
+        """
+        SELECT user_id, username
+        FROM admin
+        WHERE user_id = :user_id        
+        """
+    )
+
+    values= {"user_id": user_id}
+
+    try:
+        with engine.connect() as conn:
+            result= conn.execute(query, values)
+            user_data= result.fetchone()
+            return user_data
+        
+    except Exception as e:
+        print(f"Error retrieving data from user: {e}")
+        return None
+
+
 
 def athlete_query(athlete_df: DataFrame, engine: Engine = ENGINE) -> int:
     
