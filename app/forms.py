@@ -6,10 +6,6 @@ from wtforms import SubmitField, HiddenField, DateField, StringField, PasswordFi
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_wtf.file import FileAllowed, FileRequired, MultipleFileField
 
-
-
-
-
                     ### CUSTOM VALIDATORS ###
 
 def validate_username(form, field):
@@ -69,13 +65,7 @@ class InputForm(FlaskForm):
 
         ]
     )
-    # file_upload= MultipleFileField(
-    #     "Select .fit Files",
-    #     validators= [
-    #         FileAllowed(["fit", "FIT"], ".fit files only."),
-    #         FileRequired()
-    #     ]
-    # )
+
 
     submit= SubmitField("Register")
 
@@ -99,7 +89,7 @@ class UploadFiles(FlaskForm):
 
 class LoginForm(FlaskForm):
     username= StringField(
-        "Username",
+        "username",
         validators= [
             InputRequired(),
             Length(max=150),
@@ -109,7 +99,7 @@ class LoginForm(FlaskForm):
             
 
     password= PasswordField(
-        "Password",
+        "password",
         validators= [
             InputRequired(),
             Length(max=50)
