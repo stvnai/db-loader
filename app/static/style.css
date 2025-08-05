@@ -5,9 +5,7 @@ html {
     font-family: "DM Sans", sans-serif !important; 
     font-size: medium;
 
-    
 }
-
 
             /* ########## ******* *** LOGIN PAGE *** ******* ##########  */
 
@@ -777,7 +775,6 @@ transform: scale(0.98);
 transition: 0.2s ease-out
 
 }
-
 
 
 /* ### FLASH MESSAGES GENERAL SETTINGS ### */
