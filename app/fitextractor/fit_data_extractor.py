@@ -267,9 +267,17 @@ def extract_data(filepath:str) -> tuple:
     metadata_df["total_distance"] = (raw_metadata_df["total_distance"] / 1000).round(3).astype("Float64")
 
 ## SPEED 
+    if "avg_speed" in raw_data_df.columns: 
+        metadata_df["avg_speed"]= (raw_metadata_df["avg_speed"] * 3.6).round(2).astype("Float64")
 
-    metadata_df["avg_speed"]= (raw_metadata_df["avg_speed"] * 3.6).round(2).astype("Float64")
-    metadata_df["max_speed"]= (raw_metadata_df["max_speed"] * 3.6).round(2).astype("Float64")
+    else:
+        metadata_df["avg_speed"]= 0.00
+
+    if "max_speed" in raw_data_df.columns:    
+        metadata_df["max_speed"]= (raw_metadata_df["max_speed"] * 3.6).round(2).astype("Float64")
+
+    else:
+        metadata_df["max_speed"]= 0.00
 
 ## SPORT AND SUBSPORT
 

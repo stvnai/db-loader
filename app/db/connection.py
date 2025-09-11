@@ -1,10 +1,19 @@
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Engine
 from urllib.parse import quote_plus
 from dotenv import load_dotenv
+load_dotenv()
 
 
-def get_sqlachemy_engine():
+def get_sqlachemy_engine() ->Engine:
+
+    """"
+    Description
+    -----
+        Establish connection with PostgreSQL database to execute and commit queries.
+
+    :return Engine: DB engine.
+    """
 
     dbname= os.getenv("DB_NAME")
     user= os.getenv("DB_USER")

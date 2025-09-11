@@ -1,10 +1,10 @@
 import re
-import logging
-from datetime import date
+# import logging
+# from datetime import date
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, HiddenField, DateField, StringField, PasswordField
+from wtforms import SubmitField, StringField, PasswordField
 from wtforms.validators import InputRequired, Length, ValidationError
-from flask_wtf.file import FileAllowed, FileRequired, MultipleFileField
+# from flask_wtf.file import FileAllowed, FileRequired, MultipleFileField
 
                     ### CUSTOM VALIDATORS ###
 
@@ -12,76 +12,6 @@ def validate_username(form, field):
     if not re.match(r"^[a-zA-ZA0-9_.-]+$",field.data):        
         raise ValidationError("Only letters, numbers, '-', '_' or '.' are allowed.")
         
-
-def validate_date(form, field):
-    date_of_birth= field.data
-    today= date.today()
-
-    if date_of_birth > today:
-        raise ValidationError("Invalid date of birth.")
-    
-    min_birth_date= date(today.year - 12, today.month, today.day)
-
-    if date_of_birth > min_birth_date:
-        raise ValidationError("Young athletes should be playing, not training.")
-    max_birth_date= date(today.year - 85, today.month, today.day)
-
-    if date_of_birth < max_birth_date:
-        raise ValidationError("Rest soldier, forget numbers and enjoy rides.")
-
-                    ### DATA FIELDS ###
-
-
-class InputForm(FlaskForm):
-    
-    name= StringField(
-        "Name",
-        validators= [
-            InputRequired(),
-            Length(max=75)
-        ]
-    )
-    
-    last_name= StringField(
-        "Last Name",
-        validators= [
-            InputRequired(),
-            Length(max=75)
-        ]
-    )
-    gender= HiddenField(
-        "Gender",
-        validators= [
-            InputRequired(),
-            Length(max=75)
-        ]
-    )
-    
-    date_of_birth= DateField(
-        "Date of Birth",
-        validators=[
-            InputRequired(),
-            validate_date
-
-        ]
-    )
-
-
-    submit= SubmitField("Register")
-
-class UploadFiles(FlaskForm):
-
-    file_upload= MultipleFileField(
-        "Select .FIT Files",
-        validators= [
-            FileAllowed(["fit", "FIT"], ".fit files only."),
-            FileRequired()
-        ]
-    )
-
-    submit= SubmitField("Load Data")
-
-
 
 
         ### LOGIN FIELDS ###
@@ -97,7 +27,6 @@ class LoginForm(FlaskForm):
         ]
     )
             
-
     password= PasswordField(
         "password",
         validators= [

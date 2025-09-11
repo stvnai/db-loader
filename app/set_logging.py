@@ -1,5 +1,4 @@
 import os
-import tempfile
 import logging
 from logging import Logger
 
@@ -8,8 +7,13 @@ os.makedirs(log_dir, exist_ok=True)
 
 log_path= os.path.join(log_dir, "db-log.log")
 
-
 def set_logging(log_path= log_path, level=logging.INFO, mode="a"):
+
+    """"
+    Description
+    -----
+        Configure the loggin system for data loading process.
+    """
 
     try:
 
@@ -25,6 +29,13 @@ def set_logging(log_path= log_path, level=logging.INFO, mode="a"):
 
 
 def set_module_logger(module_name: str) -> Logger:
+    """"
+    Description
+    -----
+        Configure the module loger for data loading process across different modules and functions.
+    """
+
+
 
     logger= logging.getLogger(module_name)
 
