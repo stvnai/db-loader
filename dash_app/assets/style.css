@@ -1,0 +1,648 @@
+/* ###################### *** *** TABLE OF CONTENTS  *** *** ###################### */
+    /* #######*** ALL PAGES CONFIG ***####### */
+    /* #####*** HEADERS ***##### */
+
+    /* #######*** SELECT ATHLETE PAGE ***####### */
+    /* #####*** MAIN CONTENT AREA ***##### */
+    /* ###*** SELECT ATHLETE LIST ***### */
+    /* ###*** UPLOADER CONTAINER ***### */
+    /* ###*** LOADING ACTION CONTAINER ***### */
+
+    /* #######*** REGISTER ATHLETE PAGE ***####### */
+    /* #####*** MAIN CONTENT AREA ***##### */
+    /* ###*** TEXT INPUT CONFIG ***### */
+    /* ###*** DATE INPUT CONFIG ***### */
+
+    /* #######*** RESULTS PAGE ***####### */
+    /* #####*** MAIN CONTENT AREA ***##### */
+
+    /* #####*** LINKS CONFIG ***##### */
+    /* #####*** BUTTONS CONFIG ***##### */
+    /* ###*** LOAD BUTTON ***### */
+    /* ###*** LOG-OUT BUTTON ***### */
+    /* ###*** RETURN BUTTON ***### */
+
+    /* #####*** MEDIA ***##### */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Varela+Round&display=swap');
+
+html {
+    font-family: "DM Sans", "Noto Sans", sans-serif !important;
+    color: #a4a8bb;
+    background: radial-gradient(circle,rgba(16, 18, 29, 50) 25%, rgba(0, 0, 0, 50) 100%); 
+    font-size: 1rem;   
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* #######*** ALL PAGES CONFIG ***####### */
+
+.dash-main-container {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; 
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 1rem;
+    width: 100%;
+    gap: 4rem;
+}
+
+/* #####*** HEADERS ***##### */
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 5.5rem;
+    padding: 0.3rem 0.5rem;
+    background-color: transparent;
+    border-bottom: 1px solid #113c58;
+    margin-top: 1.5rem;
+}
+
+.h1-title {
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    text-align: left;
+    margin-top: 3rem;
+    color: #a4a8bb;
+    line-height: 1;
+}
+
+.h2-title {
+    font-size: clamp(1.2rem, 2.7vw, 2rem);
+    text-align: center;
+    margin: 0;
+    color: #1b5f8d;;
+
+}
+.h3-title {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    text-align: center;
+    margin: 0;
+    color: #a4a8bb;
+
+}
+
+.results-title-container {
+    
+    text-align: center;
+    padding: 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.results-h1-title {
+    padding: 0;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    text-align: center;
+    margin: 0;
+    color: #a4a8bb;
+
+}
+
+/* #######*** SELECT ATHLETE PAGE ***####### */
+/* #####*** MAIN CONTENT AREA ***##### */
+
+.data-loader-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    background-color: #090a11e0;
+    align-items: center;
+    box-sizing: border-box;
+    width: 40rem;
+    height: 28rem;
+    padding: 1rem;
+    gap: 0.2rem;
+    box-shadow: 0px 3px 15px 2px rgba(22, 42, 59, 0.35);
+    
+}
+
+.select-athlete-loader-container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    background-color: transparent;
+    align-items: center;
+    box-sizing: border-box;
+    width: 40rem;
+    height: 28rem;
+    padding: 1rem;
+    gap: 1rem;
+ 
+}
+
+.athlete-list-container {
+    justify-content: center;
+    width: 20rem;
+    max-width: 100%;
+    padding: 0rem;
+    margin-bottom: 15rem;
+    
+}
+
+/* ###*** SELECT ATHLETE LIST ***### */
+
+.athlete-list .Select-control {
+    background-color: #090a11 !important;
+    border: 2px solid #113c58 !important;
+    border-radius: 5px !important;
+    height: 2rem !important;
+    width: 20rem !important;
+    min-height: 2rem !important;
+    box-sizing: border-box !important;
+    
+}
+
+.athlete-list .Select-control:focus,
+.athlete-list .Select.is-focused .Select-control {
+    border-color: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.Select-placeholder {
+    color: #a4a8bb !important;
+    background-color: #090a11;
+    border: 2px solid #0d1629;
+    border-radius: 8px;
+    opacity: 0.5;
+}
+.Select-control{
+    background-color: #090a11 !important;
+    border: 2px solid #113c58 !important;
+    cursor: pointer;
+}
+.Select-menu-outer {
+    background-color: #090a11 !important;
+    border: 1px solid #090a11;
+}
+.Select-input input {
+    background-color: #090a11;
+    font-family: "DM Sans", "Noto Sans", sans-serif !important;
+    color: #a4a8bb !important;
+}
+.Select-menu {
+    max-height: 200px !important;
+}
+
+.Select-menu-outer::-webkit-scrollbar,
+.Select-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.Select-menu-outer::-webkit-scrollbar-track,
+.Select-menu::-webkit-scrollbar-track {
+    background: #090a11;
+    border-radius: 4px;
+}
+
+.Select-menu-outer::-webkit-scrollbar-thumb,
+.Select-menu::-webkit-scrollbar-thumb {
+    background: #a4a8bb;
+    border-radius: 4px;
+}
+
+.Select-menu-outer::-webkit-scrollbar-thumb:hover,
+.Select-menu::-webkit-scrollbar-thumb:hover {
+    background: #8a90a8;
+}
+
+/* Para Firefox */
+.Select-menu-outer,
+.Select-menu {
+    scrollbar-width: thin;
+    scrollbar-color: #a4a8bb #090a11;
+}
+
+.Select-value-label {
+    color: #a4a8bb !important;
+}
+
+/* ###*** UPLOADER CONTAINER ***### */
+
+.uploader-container {
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 22.5rem;
+    justify-content: center;
+}
+
+.dash-uploader-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    height: 17rem; 
+    width: 18rem; 
+    margin: 2rem 0rem;
+    border: 2px dashed #237bb6;
+    border-radius: 0.75rem;
+    background-color: rgba(27, 95, 141, 0.1);
+    cursor: pointer;
+    font-size: 1rem;
+    color:#a4a8bb;
+    text-align: center;
+    scale: 1.0;
+    transition: 0.2s ease-out;
+    gap: 0.2rem;
+}
+
+.dash-uploader-area:hover {
+    color:#a4a8bb;
+    background-color: rgba(27, 95, 141, 0.2);
+    transition: 0.2s ease-in;
+    cursor:pointer;
+}
+
+.dash-uploader-area p {
+    margin: 0.2rem 0;
+}
+
+.dash-uploader-area a {
+    color: #237bb6;
+    font-weight: bold;
+    text-decoration: none; 
+}
+.dash-uploader-area a:hover {
+    font-weight: bold;
+    text-decoration: none; 
+}
+
+._dash-undo-redo {
+    background: none !important;
+    border: none !important;
+}
+
+div[data-dash-is-loading="true"]::before {
+    display: none !important;
+}
+
+/* #####*** LOADING ACTION CONTAINER ***##### */
+
+.loading-container {
+    width: 40rem;
+    height: 28rem;
+}
+
+.loading-data {
+    position: absolute;
+    width: 40rem;
+    height: 28rem;
+}
+/* #######*** REGISTER ATHLETE PAGE ***####### */
+/* #####*** MAIN CONTENT AREA ***##### */
+
+.register-data-container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    background-color: #090a11e0;
+    align-items: center;
+    box-sizing: border-box;
+    width: 30rem;
+    height: 28rem;
+    padding: 1rem;
+    gap: 2rem;
+    box-shadow: 0px 3px 15px 2px rgba(22, 42, 59, 0.35);
+    
+}
+
+.register-all-inputs-container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    align-items: center;
+    box-sizing: border-box;
+    width: 25rem;
+    height: 100%;
+    padding: 1rem;
+    gap: 1rem;
+    
+}
+
+/* ###*** TEXT INPUT CONFIG ***### */
+
+.text-input {
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color:#a4a8bb;
+    text-align: left;
+    text-indent: 5px;
+    background-color: #090a11;
+    border: 2px solid #113c58;
+    border-radius: 5px;
+    height: 1.8rem;
+    width: 12rem;
+}
+
+.text-input::placeholder {
+    color: #A1A8B4;
+    opacity: 0.5;
+}
+
+.text-input:invalid {
+    border: 2px solid #EB2C44 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* ###*** DATE INPUT CONFIG ***### */
+
+.dates-input-container{
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.3rem;
+    gap: 1rem;
+}
+
+.date-input .Select-input{
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    font-size: 0.875rem;
+    color:#a4a8bb;
+    text-align: center;
+    background-color: #090a11;
+    border-radius: 5px;
+    height: 2rem;
+    width: 3.5rem;
+}
+
+.date-input .Select-control {
+    background-color: #090a11 !important;
+    border: 2px solid #113c58 !important;
+    border-radius: 5px !important;
+    height: 2rem !important;
+    width: 3.5rem !important;
+    min-height: 2rem !important;
+    box-sizing: border-box !important;
+}
+
+.date-input .Select-control:focus,
+.date-input .Select.is-focused .Select-control {
+    border-color: #1f7199 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.date-input .Select-value-label {
+    color: #a4a8bb !important;
+}
+
+.text-input:invalid {
+    border: 2px solid #EB2C44 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* #######*** RESULTS PAGE ***####### */
+/* #####*** MAIN CONTENT AREA ***##### */
+
+.results-main-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    background-color: transparent;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 43rem;
+    padding: 1rem;    
+}
+
+.results-chart-container {
+    margin-left: 5rem;
+    height: 100%;
+    width: 95%;
+    align-items: center;
+    background-color: transparent; 
+    border-radius: 0.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: "DM Sans", "Noto Sans", sans-serif;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    padding: 0;
+
+}
+
+/* #####*** LINKS CONFIG ***##### */
+
+.p-register-athlete {
+    display: block;
+    margin-top: 2px;
+    text-align: center;
+    text-decoration: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    scale: 1.0;
+    transition: 0.2s ease-out;
+}
+
+.link-register-athlete {
+    display: block;
+    color: #1e959b;
+    margin-top: 2px;
+    text-align: center;
+    text-decoration: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    scale: 1.0;
+    transition: 0.2s ease-out;
+    cursor: pointer;
+}
+
+.link-register-athlete:hover {
+    display: block;
+    color: #237bb6;
+    margin-top: 5px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    transition: 0.2s ease-in;
+    ;
+}
+
+.link-register-athlete:active {
+    transform: scale(0.98);
+    transition: 0.2s ease-out
+}
+
+.link-register-athlete:visited {
+
+    color: #1b5f8d
+}
+.link-register-athlete:visited:hover {
+
+    color: #237bb6
+}
+
+/* #######*** BUTTONS CONFIG ***####### */
+/* #####*** LOAD BUTTON ***##### */
+
+.load-button {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-top: -3rem;
+    height: 3rem;
+    width: 10rem;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem; 
+    background-color: rgba(27, 95, 141, 0.1); 
+    color: #a4a8bb;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;;
+    font-weight: bold;
+    display: flex;         
+    align-items: center;   
+    justify-content: center;
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    
+}
+
+.load-button:hover{
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
+    transition: 0.2s ease-in-out;
+}
+
+.load-button:active {
+    transform: scale(0.98);
+    transition: 0.2s ease-out
+}
+
+.load-button:disabled {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-top: -3rem;
+
+    height: 3rem;
+    width: 10rem;
+    border: 2px solid #1b5f8c2a;
+    border-radius: 0.75rem; 
+    background-color: rgba(32, 58, 75, 0.1); 
+    color: #747684;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;;
+    font-weight: bold;
+    display: flex;         
+    align-items: center;   
+    justify-content: center;
+    scale: 1.0;
+    
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+}
+
+.load-button:disabled:hover {
+    cursor: pointer;
+}
+
+.load-button:disabled:active {
+    transform: scale(1.0);
+    transition: 0.2s ease-out
+}
+
+/* #####*** LOG-OUT BUTTON ***##### */
+
+.logout-button {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    height: 2.8rem;
+    width: 8rem;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem; 
+    background-color: rgba(27, 95, 141, 0.1); 
+    color: #a4a8bb;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;
+    font-weight: bold;
+    display: flex;         
+    align-items: center;   
+    justify-content: center;
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    
+}
+
+.logout-button:hover{
+    color: #237bb6;
+    background-color: rgba(27, 95, 141, 0.2);
+    transition: 0.2s ease-in-out;
+}
+
+.logout-button:active {
+    transform: scale(0.98);
+    transition: 0.2s ease-out
+}
+
+/* #####*** RETURN BUTTON ***##### */
+
+.return-button {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;          
+    height: 2.5rem;
+    width: 8rem;
+    border: 2px solid #237bb62a;
+    border-radius: 0.75rem; 
+    background-color: rgba(27, 95, 141, 0.1); 
+    color: #a4a8bb;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.875rem;
+    font-weight: bold;
+    display: flex;           
+    align-items: center;     
+    justify-content: center; 
+    scale: 1.0;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    text-decoration: none; 
+    margin-bottom: 5rem;
+}
+
+.return-button:hover {
+    background-color: rgba(27, 95, 141, 0.2);
+}
+
+.return-button:active {
+    transform: scale(0.98);
+    transition: 0.2s ease-out
+}

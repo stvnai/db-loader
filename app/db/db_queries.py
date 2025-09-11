@@ -97,19 +97,6 @@ def athlete_query(athlete_df: DataFrame, engine: Engine = ENGINE) -> int:
         "dob": athlete_df["date_of_birth"].iloc[0]
     }
 
-    # insert_query= text("""
-    #                      INSERT INTO athlete.athlete (name, last_name, date_of_birth, gender)
-    #                      VALUES (:name, :last_name, :dob, :gender)
-    #                      RETURNING
-    #                      athlete_id
-    #                      """)
-
-    # insert_query_values= {
-    #     "name": athlete_df["name"].iloc[0],
-    #     "last_name": athlete_df["last_name"].iloc[0],
-    #     "dob": athlete_df["date_of_birth"].iloc[0],
-    #     "gender": athlete_df["gender"].iloc[0]    
-    # }
 
     try:
 
@@ -117,9 +104,6 @@ def athlete_query(athlete_df: DataFrame, engine: Engine = ENGINE) -> int:
             check_athlete_result= conn.execute(select_query, select_query_values)
             athlete_id= check_athlete_result.scalar_one_or_none()
             
-            # if athlete_id is None:
-            #         insert_athlete_result= conn.execute(insert_query, insert_query_values)
-            #         athlete_id= insert_athlete_result.scalar_one_or_none()
             return athlete_id
 
     except Exception as e:
