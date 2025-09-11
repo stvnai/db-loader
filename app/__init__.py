@@ -36,8 +36,6 @@ from dash_app.callbacks.results_callback import show_results
 # log-out callbacks
 from dash_app.callbacks.logout_callback import log_out, register_log_out, results_log_out
 
-from dotenv import load_dotenv
-load_dotenv()
 
 token= os.environ.get("SECRET_KEY")
 csrf = CSRFProtect()
